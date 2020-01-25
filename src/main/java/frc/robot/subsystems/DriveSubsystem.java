@@ -15,6 +15,7 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -25,8 +26,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   private final WPI_TalonSRX leftMotor1 = new WPI_TalonSRX(Constants.leftMotor);
   private final WPI_TalonSRX rightMotor1 = new WPI_TalonSRX(Constants.rightMotor);
+  private final WPI_VictorSPX leftMotor2 = new WPI_VictorSPX(Constants.leftMotor2);
+  private final WPI_VictorSPX rightMotor2 = new WPI_VictorSPX(Constants.rightMotor2);
+
 
   private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotor1, rightMotor1);
+  
   public DriveSubsystem() {
 
     rightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0); // Tell the motor controllers that there are encoders connected to them
@@ -36,6 +41,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftMotor1.setNeutralMode(NeutralMode.Brake);
     rightMotor1.setNeutralMode(NeutralMode.Brake);
+
+    leftMotor2.follow(leftMotor1);
+    rightMotor2.follow(rightMotor1);
     
 
 

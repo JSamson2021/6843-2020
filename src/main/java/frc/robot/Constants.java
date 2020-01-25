@@ -19,9 +19,16 @@ public final class Constants {
     //CAN Channels
     public static int leftMotor = 10; // The first two are the drive motors for the robot
     public static int rightMotor = 11;
+<<<<<<< HEAD
     public static int compressor = 0; // Compressor for pneumaatics
     public static int pickupMotor = 15; //the pickup motor thing phsically spins the brush to pivkup the ball
     public static int colorMotor = 14;
+=======
+    public static int rightMotor2 = 12;
+    public static int leftMotor2 = 13;
+    
+    public static int compressor = 0; // Compressor for pneumaatics
+>>>>>>> a4f8ad20b195d38716efb1c0fa0c2f614b4c5ed3
 
     // PCM Channels
     public static int hangingOne = 0;  //First phase solenoid for hang

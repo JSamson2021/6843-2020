@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
 
 public class HangingSubsystem extends SubsystemBase {
   
@@ -32,6 +32,14 @@ public class HangingSubsystem extends SubsystemBase {
   public void hangPhaseOne(){
     firstStage.set(true); // Activates the first phase of hanging
   }
-  
+
+  public void hangPhaseTwo(){
+    secondStage.set(Value.kForward); // Activates the second stage of hanging
+  }
+
+  public void releaseHangingMech(){
+    secondStage.set(Value.kOff); 
+    firstStage.set(false);
+  }
 
 }
