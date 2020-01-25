@@ -21,7 +21,7 @@ public final class Constants {
     public static int rightMotor = 11;
     public static int compressor = 0; // Compressor for pneumaatics
     public static int pickupMotor = 15; //the pickup motor thing phsically spins the brush to pivkup the ball
-    public static int colorMotor = 14
+    public static int colorMotor = 14;
 
     // PCM Channels
     public static int hangingOne = 0;  //First phase solenoid for hang
