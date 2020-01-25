@@ -7,10 +7,7 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
-=======
 import edu.wpi.first.wpilibj.DriverStation;
->>>>>>> a4f8ad20b195d38716efb1c0fa0c2f614b4c5ed3
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -36,12 +33,9 @@ public class ColorWheelSubsystem extends SubsystemBase {
   private final Color kYellowTarget = ColorMatch.makeColor(0.320, 0.563, 0.114);
 
   
-<<<<<<< HEAD
-=======
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
   
->>>>>>> a4f8ad20b195d38716efb1c0fa0c2f614b4c5ed3
   
   public ColorWheelSubsystem() {
     
@@ -57,10 +51,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-<<<<<<< HEAD
-=======
     gameData = DriverStation.getInstance().getGameSpecificMessage();
->>>>>>> a4f8ad20b195d38716efb1c0fa0c2f614b4c5ed3
   }
 
   public ColorMatchResult detectColor(){
@@ -69,8 +60,6 @@ public class ColorWheelSubsystem extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(sensorValue);
     return match;
   }
-<<<<<<< HEAD
-=======
 
   public String colorToString(ColorMatchResult input) {
     String string1 = input.toString();
@@ -89,5 +78,4 @@ public class ColorWheelSubsystem extends SubsystemBase {
     }
 
   }
->>>>>>> a4f8ad20b195d38716efb1c0fa0c2f614b4c5ed3
 }
