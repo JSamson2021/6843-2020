@@ -61,5 +61,13 @@ public class DriveSubsystem extends SubsystemBase {
     diffDrive.arcadeDrive(power, curve);
   }
 
+  public void clearEncoders(){
+    leftMotor1.setSelectedSensorPosition(0);
+    rightMotor1.setSelectedSensorPosition(0);
+  }
+
+  public void clearGyro(){
+    gyro.zeroYaw();
+  }
 
 }
