@@ -36,7 +36,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
   
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-  
+  private int rotationCount = 0;
   
   public ColorWheelSubsystem() {
     
@@ -78,5 +78,21 @@ public class ColorWheelSubsystem extends SubsystemBase {
       return false;
     }
 
+  }
+
+  public int numRotaions(String startColor){
+    
+    String currentColor = colorToString(detectColor());
+
+    int rotation = 0;
+    
+
+    if(currentColor.equals(startColor)){
+      int rotationCount = rotation++;  
+      return rotationCount;
+    } else {
+      return rotationCount;
+    }
+     
   }
 }
