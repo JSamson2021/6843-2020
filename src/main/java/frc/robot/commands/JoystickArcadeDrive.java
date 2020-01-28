@@ -22,10 +22,11 @@ public class JoystickArcadeDrive extends CommandBase {
    */
   public JoystickArcadeDrive(DriveSubsystem driveSubsystem, Supplier<Double> powerSupplier, Supplier<Double> curveSupplier) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveSubsystem);
     m_driveSubsystem = driveSubsystem;
     m_powerSupplier = powerSupplier;
     m_curveSupplier = curveSupplier;
+    addRequirements(driveSubsystem);
+    
   }
 
   // Called when the command is initially scheduled.
