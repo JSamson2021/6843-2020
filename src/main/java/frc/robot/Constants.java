@@ -24,6 +24,7 @@ public final class Constants {
     public static int colorMotor = 14; // Motor to spin the color wheel
     public static int pickupMotor = 15; // The pickup motor that physically spins the brush to pick up the ball
     public static int hangMotor = 16; // The motor to pull up the robot once it is secured to the hang bar
+    public static int conveyorMotor = 17; // The motor that controls the belt to move the balls to the shooter.
 
     public static int compressor = 0; // Compressor for pneumatics system
 
@@ -37,4 +38,4 @@ public final class Constants {
 } 
 
 
-// If you find me, change this message
+// Stink
