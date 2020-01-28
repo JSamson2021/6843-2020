@@ -13,17 +13,18 @@ import edu.wpi.first.wpilibj.util.Color;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
+
 import com.revrobotics.ColorMatch;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ColorWheelSubsystem extends SubsystemBase {
   /**
    * Creates a new ColorWheelSubsystem.
    */
-  private final WPI_TalonSRX colorSpinner = new WPI_TalonSRX(12);
+  private final WPI_TalonSRX colorSpinner = new WPI_TalonSRX(Constants.colorMotor);
   private final ColorSensorV3 cV3 = new ColorSensorV3(Port.kOnboard);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -54,14 +55,14 @@ public class ColorWheelSubsystem extends SubsystemBase {
     gameData = DriverStation.getInstance().getGameSpecificMessage();
   }
 
-  public ColorMatchResult detectColor(){
+  public Color detectColor(){
     Color sensorValue = cV3.getColor();
     m_colorMatcher.setConfidenceThreshold(0.01);
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(sensorValue);
+    Color match = m_colorMatcher.matchClosestColor(sensorValue).color;
     return match;
   }
 
-  public String colorToString(ColorMatchResult input) {
+  public String colorToString(Color input) {
     String string1 = input.toString();
     Character char1 = string1.charAt(1);
     String finalString = char1.toString();
