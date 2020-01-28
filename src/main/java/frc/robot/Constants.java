@@ -16,18 +16,25 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //CAN Channels
-    public static int leftMotor = 10; // The first two are the drive motors for the robot
-    public static int rightMotor = 11;
-    public static int rightMotor2 = 12;
-    public static int leftMotor2 = 13;
-    
-    public static int compressor = 0; // Compressor for pneumaatics
-    public static int pickupMotor = 15; //the pickup motor thing phsically spins the brush to pickup the ball
-    public static int colorMotor = 14; 
+    // CAN Channels
+    public static int leftMotor = 10; // Drivebase left front motor, TalonSRX
+    public static int rightMotor = 11; // Drivebase right front motor, TalonSRX
+    public static int rightMotor2 = 12; // Drivebase right rear motor, VictorSPX
+    public static int leftMotor2 = 13; // Drivebase left rear motor, VictorSPX
+    public static int colorMotor = 14; // Motor to spin the color wheel
+    public static int pickupMotor = 15; // The pickup motor that physically spins the brush to pick up the ball
+    public static int hangMotor = 16; // The motor to pull up the robot once it is secured to the hang bar
+
+    public static int compressor = 0; // Compressor for pneumatics system
 
     // PCM Channels
     public static int hangingOne = 0;  //First phase solenoid for hang
-    public static int hangingTwoFirst = 1;  // second stage solenoid for hang, parts one and two of double solenoid
+    public static int hangingTwoFirst = 1;  // Second stage solenoid for hang, parts one and two of double solenoid
     public static int hangingTwoSecond = 1; // Beep boob beep
-}
+
+    // DIO Channels
+    public static int hangLimit = 0;
+} 
+
+
+// If you find me, change this message

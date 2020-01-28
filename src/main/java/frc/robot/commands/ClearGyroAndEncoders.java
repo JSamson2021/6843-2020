@@ -7,26 +7,18 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class JoystickArcadeDrive extends CommandBase {
+public class ClearGyroAndEncoders extends CommandBase {
   final DriveSubsystem m_driveSubsystem;
-  final Supplier<Double> m_powerSupplier;
-  final Supplier<Double> m_curveSupplier;
   /**
-   * Creates a new JoystickArcadeDrive.
+   * Creates a new ClearGyroAndEncoders.
    */
-  public JoystickArcadeDrive(DriveSubsystem driveSubsystem, Supplier<Double> powerSupplier, Supplier<Double> curveSupplier) {
+  public ClearGyroAndEncoders(DriveSubsystem driveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
-    m_powerSupplier = powerSupplier;
-    m_curveSupplier = curveSupplier;
     addRequirements(driveSubsystem);
-    
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +29,8 @@ public class JoystickArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveSubsystem.arcadeDrive(m_powerSupplier.get(), m_curveSupplier.get());
+    m_driveSubsystem.clearEncoders();
+    m_driveSubsystem.clearGyro();
   }
 
   // Called once the command ends or is interrupted.

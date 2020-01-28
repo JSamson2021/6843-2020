@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -42,21 +43,31 @@ public class DriveSubsystem extends SubsystemBase {
     leftMotor1.setNeutralMode(NeutralMode.Brake);
     rightMotor1.setNeutralMode(NeutralMode.Brake);
 
-    leftMotor2.follow(leftMotor1);
-    rightMotor2.follow(rightMotor1);
-    
-
-
+    leftMotor2.follow(leftMotor1); // Tells the secondary motors to follow the TalonSRXs
+    rightMotor2.follow(rightMotor1); // "
+  
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Right Encoder", rightMotor1.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Left Encoder", leftMotor1.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Gyro Yaw" , gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Heading" , gyro.getCompassHeading());
   }
 
   public void arcadeDrive(double power, double curve){
     diffDrive.arcadeDrive(power, curve);
   }
 
+  public void clearEncoders(){
+    leftMotor1.setSelectedSensorPosition(0);
+    rightMotor1.setSelectedSensorPosition(0);
+  }
+
+  public void clearGyro(){
+    gyro.zeroYaw();
+  }
 
 }
