@@ -20,6 +20,7 @@ public class PickUpSubsystem extends SubsystemBase {
   
   private final SpeedController m_pickupMotor = new WPI_TalonSRX(Constants.pickupMotor);
   private final SpeedController m_conveyorMotor = new WPI_TalonSRX(Constants.conveyorMotor);
+  private final SpeedController m_shootMotor = new WPI_TalonSRX(Constants.shootMotor);
   public PickUpSubsystem() {
 
   }
@@ -32,9 +33,12 @@ public class PickUpSubsystem extends SubsystemBase {
     m_pickupMotor.set(.2);
   }
   public void spinConveyor(){
-    m_conveyorMotor.set(.1);
+    m_conveyorMotor.set(.2);
   }
-  
+  public void shootBall(){
+    m_shootMotor.set(.3);
+  }
+
 
 
 

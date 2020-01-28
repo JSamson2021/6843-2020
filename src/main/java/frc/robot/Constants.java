@@ -25,6 +25,7 @@ public final class Constants {
     public static int pickupMotor = 15; // The pickup motor that physically spins the brush to pick up the ball
     public static int hangMotor = 16; // The motor to pull up the robot once it is secured to the hang bar
     public static int conveyorMotor = 17; // The motor that controls the belt to move the balls to the shooter.
+    public static int shootMotor = 18; // The motor that shoots the balls.
 
     public static int compressor = 0; // Compressor for pneumatics system
 
