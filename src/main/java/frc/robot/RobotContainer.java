@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ClearGyroAndEncoders;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
+import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -70,6 +71,7 @@ public class RobotContainer {
 	
 	// Below sets the button A on "driver" to the command "ClearGyroAndEncoders"
 	new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem)); 
+	new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
 
   }
 
@@ -92,7 +94,7 @@ public class RobotContainer {
 		if (Math.abs(drivePower) < DEAD_ZONE) {
 			drivePower = 0.0;
 		}
-		return Math.pow(drivePower, 3.0);
+		return Math.pow(drivePower, 2.5); // 3.0
 	}
 
 	/**
@@ -103,7 +105,7 @@ public class RobotContainer {
 		if (Math.abs(curvePower) < DEAD_ZONE) {
 			curvePower = 0.0;
 		}
-		return Math.pow(curvePower, 5.0);
+		return Math.pow(curvePower, 3.0); // 5.0
 	}
 
 }

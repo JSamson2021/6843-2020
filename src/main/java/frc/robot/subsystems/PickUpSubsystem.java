@@ -32,11 +32,15 @@ public class PickUpSubsystem extends SubsystemBase {
   public void spinPickup(){
     m_pickupMotor.set(.2);
   }
+  public void stopPickup(){
+    m_pickupMotor.set(0.0);
+    m_pickupMotor.stopMotor(); // Extra safe
+  }
   public void spinConveyor(){
     m_conveyorMotor.set(.2);
   }
   public void shootBall(){
-    m_shootMotor.set(.3);
+    m_shootMotor.set(.25);
   }
 
 
