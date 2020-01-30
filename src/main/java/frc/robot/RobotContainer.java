@@ -14,11 +14,13 @@ import frc.robot.commands.CellIntake;
 import frc.robot.commands.ClearGyroAndEncoders;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
+import frc.robot.commands.PickRobotUp;
 import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PickUpSubsystem;
+import frc.robot.subsystems.HangingSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -46,7 +48,9 @@ public class RobotContainer {
 
   private final JoystickArcadeDrive m_driveCommand = new JoystickArcadeDrive(m_driveSubsystem, ()-> getDrivePower(), ()-> getCurvePower());
 
-  private final PickUpSubsystem m_PickUpSubsystem = new PickUpSubsystem();
+  private final PickUpSubsystem m_pickUpSubsystem = new PickUpSubsystem();
+
+  private final HangingSubsystem m_hangingSubsystem = new HangingSubsystem();
 
   private final XboxController driver = new XboxController(0);
 // Yes Michael I took all this stuff away.
@@ -72,14 +76,14 @@ public class RobotContainer {
 	
 	// Section for Controls, WHEN PRESSED
   new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem));
- /* new JoystickButton(driver, Button.kB.value).whenPressed(new );
-  new JoystickButton(driver, Button.kX.value).whenPressed(new );
-  new JoystickButton(driver, Button.kY.value).whenPressed(new );
-  new JoystickButton(driver, Button.kStart.value).whenPressed(new );
-  new JoystickButton(driver, Button.kBack.value).whenPressed(new );
-  new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new );
-  new JoystickButton(driver, Button.kBumperLeft.value).whenPressed(new );
-*/
+//  new JoystickButton(driver, Button.kB.value).whenPressed(new );
+//  new JoystickButton(driver, Button.kX.value).whenPressed(new );
+//  new JoystickButton(driver, Button.kY.value).whenPressed(new );
+//  new JoystickButton(driver, Button.kStart.value).whenPressed(new );
+//  new JoystickButton(driver, Button.kBack.value).whenPressed(new );
+  new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new PickRobotUp(m_hangingSubsystem));
+//  new JoystickButton(driver, Button.kBumperLeft.value).whenPressed(new );
+
   // Section for Controls, WHILE HELD
   
   //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
@@ -89,7 +93,7 @@ public class RobotContainer {
  // new JoystickButton(driver, Button.kStart.value).whileHeld(new );
  // new JoystickButton(driver, Button.kBack.value).whileHeld(new );
  // new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
-  new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_PickUpSubsystem)); 
+  new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
 
 
 
