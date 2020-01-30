@@ -26,6 +26,7 @@ public final class Constants {
     public static int hangMotor = 16; // The motor to pull up the robot once it is secured to the hang bar
     public static int conveyorMotor = 17; // The motor that controls the belt to move the balls to the shooter.
     public static int shootMotor = 18; // The motor that shoots the balls.
+    public static int spinnerMotor = 19; // The motor that spins the wheel.
 
     public static int compressor = 0; // Compressor for pneumatics system
 
@@ -39,4 +40,4 @@ public final class Constants {
 } 
 
 
-// If you see this please send help
+// Stink

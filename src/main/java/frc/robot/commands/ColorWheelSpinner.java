@@ -7,13 +7,23 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.SpeedController;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorWheelSubsystem;
+
+import frc.robot.Constants;
+
+
 
 public class ColorWheelSpinner extends CommandBase {
   /**
    * Creates a new ColorWheelSpinner.
    */
+  private final SpeedController m_spinnerMotor = new WPI_TalonSRX(Constants.spinnerMotor);
+
   private final ColorWheelSubsystem m_colorWheelSubsystem;
   private static String m_startColor;
 
@@ -29,8 +39,9 @@ public class ColorWheelSpinner extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // start the motor
+    
     ColorWheelSpinner.m_startColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.detectColor());
+  
   }
 
 
@@ -40,7 +51,12 @@ public class ColorWheelSpinner extends CommandBase {
   public void execute() {
     //call numRotations while motor is running 
     final String startColor = m_startColor;
-    m_colorWheelSubsystem.numRotaions(startColor);
+    m_spinnerMotor.set(.1);
+  
+    if(m_colorWheelSubsystem.numRotaions(startColor) > 6){
+      //stop motor
+      m_spinnerMotor.set(0);
+    }
   }
 
 
@@ -48,9 +64,6 @@ public class ColorWheelSpinner extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
-    //stop the motor when numRotations is max
-
   }
 
 
