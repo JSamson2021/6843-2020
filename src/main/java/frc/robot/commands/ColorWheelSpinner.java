@@ -55,7 +55,7 @@ public class ColorWheelSpinner extends CommandBase {
   
     if(m_colorWheelSubsystem.numRotaions(startColor) > 6){
       //stop motor
-      m_spinnerMotor.set(0);
+      m_spinnerMotor.set(0.0);
     }
   }
 
