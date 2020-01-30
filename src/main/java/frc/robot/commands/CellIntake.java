@@ -29,7 +29,7 @@ public class CellIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pickUpSubsystem.spinPickup(); // Spins the pickup motor
+    m_pickUpSubsystem.spinPickup(.25); // Spins the pickup motor
   }
 
   // Called once the command ends or is interrupted.
