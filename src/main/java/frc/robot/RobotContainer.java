@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.CellIntake;
 import frc.robot.commands.ClearGyroAndEncoders;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
@@ -69,9 +70,30 @@ public class RobotContainer {
   private void configureButtonBindings() {
 	m_driveSubsystem.setDefaultCommand(m_driveCommand);
 	
-	// Below sets the button A on "driver" to the command "ClearGyroAndEncoders"
-	new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem)); 
-	new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
+	// Section for Controls, WHEN PRESSED
+  new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem));
+ /* new JoystickButton(driver, Button.kB.value).whenPressed(new );
+  new JoystickButton(driver, Button.kX.value).whenPressed(new );
+  new JoystickButton(driver, Button.kY.value).whenPressed(new );
+  new JoystickButton(driver, Button.kStart.value).whenPressed(new );
+  new JoystickButton(driver, Button.kBack.value).whenPressed(new );
+  new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new );
+  new JoystickButton(driver, Button.kBumperLeft.value).whenPressed(new );
+*/
+  // Section for Controls, WHILE HELD
+  
+  //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
+  new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
+ // new JoystickButton(driver, Button.kX.value).whileHeld(new );
+ // new JoystickButton(driver, Button.kY.value).whileHeld(new );
+ // new JoystickButton(driver, Button.kStart.value).whileHeld(new );
+ // new JoystickButton(driver, Button.kBack.value).whileHeld(new );
+ // new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
+  new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_PickUpSubsystem)); 
+
+
+
+
 
   }
 
