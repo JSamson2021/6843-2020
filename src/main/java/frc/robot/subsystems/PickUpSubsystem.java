@@ -29,18 +29,26 @@ public class PickUpSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void spinPickup(){
-    m_pickupMotor.set(.2);
+  public void spinPickup(double speed){
+    m_pickupMotor.set(speed);
   }
   public void stopPickup(){
     m_pickupMotor.set(0.0);
     m_pickupMotor.stopMotor(); // Extra safe
   }
-  public void spinConveyor(){
-    m_conveyorMotor.set(.2);
+  public void spinConveyor(double speed){
+    m_conveyorMotor.set(speed);
+  }
+  public void stopConveyor(){
+    m_conveyorMotor.set(0.0);
+    m_conveyorMotor.stopMotor(); // Still extra safe
   }
   public void shootBall(){
     m_shootMotor.set(.25);
+  }
+  public void stopShooting(){
+    m_shootMotor.set(0.0);
+    m_shootMotor.stopMotor(); // Still still extra safe
   }
 
 
