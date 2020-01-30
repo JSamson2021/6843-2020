@@ -39,7 +39,7 @@ public class ColorWheelSpinner extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    //defines startColor as the color the sensor is on
     ColorWheelSpinner.m_startColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.detectColor());
   
   }
@@ -49,13 +49,12 @@ public class ColorWheelSpinner extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //call numRotations while motor is running 
     final String startColor = m_startColor;
-    m_spinnerMotor.set(.1);
+
+    m_spinnerMotor.set(.1); //start the motor
   
     if(m_colorWheelSubsystem.numRotaions(startColor) > 6){
-      //stop motor
-      m_spinnerMotor.set(0.0);
+      m_spinnerMotor.set(0.0); //stops the motor when the wheel is spun three times  
     }
   }
 

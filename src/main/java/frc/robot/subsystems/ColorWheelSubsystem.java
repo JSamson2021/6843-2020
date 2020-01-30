@@ -59,17 +59,17 @@ public class ColorWheelSubsystem extends SubsystemBase {
     Color sensorValue = cV3.getColor();
     m_colorMatcher.setConfidenceThreshold(0.01);
     Color match = m_colorMatcher.matchClosestColor(sensorValue).color;
-    return match;
+    return match; //returns color the sensor is on
   }
 
   public String colorToString(Color input) {
     String string1 = input.toString();
     Character char1 = string1.charAt(1);
     String finalString = char1.toString();
-    return finalString;
+    return finalString; //returns a one character string for what color the sensor is on (B, G, R, or Y)
   }
 
-  public boolean onColor(){
+  public boolean onColor(){  //returns true if the sensor is on the color that we are given during the match
     if (gameData != null) {
       return false;
     } else if (gameData.equals(colorToString(detectColor()))) {
@@ -80,7 +80,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   }
 
-  public int numRotaions(String startColor){
+  public int numRotaions(String startColor){ //returns the amount of times the sensor sees the first color
     
     String currentColor = colorToString(detectColor());
 
@@ -88,7 +88,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
     
 
     if(currentColor.equals(startColor)){
-      int rotationCount = rotation++;  
+      int rotationCount = rotation++; //increases rotationCount everytime the sensor sees the first color  
       return rotationCount;
     } else {
       return rotationCount;
