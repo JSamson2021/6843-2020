@@ -48,16 +48,11 @@ public class PickUpSubsystem extends SubsystemBase {
     m_conveyorMotor.set(0.0);
     m_conveyorMotor.stopMotor(); // Still extra safe
   }
-  public void shootBall(){
-    m_shootMotor.set(.25);
+  public void shootBall(double speed){
+    m_shootMotor.set(speed);
   }
   public void stopShooting(){
     m_shootMotor.set(0.0);
     m_shootMotor.stopMotor(); // Still still extra safe
   }
-public void moveBallandShoot(){
-  
-  
-}
-
 }
