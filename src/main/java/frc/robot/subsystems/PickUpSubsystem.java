@@ -50,8 +50,9 @@ public class PickUpSubsystem extends SubsystemBase {
     m_shootMotor.set(0.0);
     m_shootMotor.stopMotor(); // Still still extra safe
   }
-
-
-
+public void moveBallandShoot(){
+  
+  
+}
 
 }
