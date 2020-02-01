@@ -25,7 +25,6 @@ public class ColorWheelSpinner extends CommandBase {
   private final SpeedController m_spinnerMotor = new WPI_TalonSRX(Constants.spinnerMotor);
 
   private final ColorWheelSubsystem m_colorWheelSubsystem;
-  private static String m_startColor;
 
   public ColorWheelSpinner(ColorWheelSubsystem colorWheelSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,9 +38,6 @@ public class ColorWheelSpinner extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //defines startColor as the color the sensor is on
-    ColorWheelSpinner.m_startColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.detectColor());
-  
   }
 
 
@@ -49,11 +45,10 @@ public class ColorWheelSpinner extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    final String startColor = m_startColor;
 
     m_spinnerMotor.set(.1); //start the motor
   
-    if(m_colorWheelSubsystem.numRotaions(startColor) > 6){
+    if(m_colorWheelSubsystem.numRotaions() > 6){
       m_spinnerMotor.set(0.0); //stops the motor when the wheel is spun three times  
     }
   }
