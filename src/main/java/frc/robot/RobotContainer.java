@@ -15,6 +15,7 @@ import frc.robot.commands.ClearGyroAndEncoders;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
 import frc.robot.commands.PickRobotUp;
+import frc.robot.commands.ShootCells;
 import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -88,11 +89,11 @@ public class RobotContainer {
   
   //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
   new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
- // new JoystickButton(driver, Button.kX.value).whileHeld(new );
- // new JoystickButton(driver, Button.kY.value).whileHeld(new );
- // new JoystickButton(driver, Button.kStart.value).whileHeld(new );
- // new JoystickButton(driver, Button.kBack.value).whileHeld(new );
- // new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
+  new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
+//  new JoystickButton(driver, Button.kY.value).whileHeld(new );
+//  new JoystickButton(driver, Button.kStart.value).whileHeld(new );
+//  new JoystickButton(driver, Button.kBack.value).whileHeld(new );
+//  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
   new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
 
 
