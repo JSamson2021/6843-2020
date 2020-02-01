@@ -38,15 +38,15 @@ public final class Constants {
     // DIO Channels
     public static int hangLimit = 0;
 
-
-    // Constants for things other than ports 
-    public static int debounceCount = 4; // The number of scheduler runs before the color is considered read (20 ms is 1 run)
-
     public static int recievingIntake = 1;
     public static int recievingFill = 2;
 
     public static int emittingIntake = 3;
     public static int emittingFill = 5;
+
+    // Constants for things other than ports 
+    public static int debounceCount = 4; // The number of scheduler runs before the color is considered read (20 ms is 1 run)
+
 } 
 
 
