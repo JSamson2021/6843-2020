@@ -21,6 +21,10 @@ public class PickUpSubsystem extends SubsystemBase {
   private final SpeedController m_pickupMotor = new WPI_TalonSRX(Constants.pickupMotor);
   private final SpeedController m_conveyorMotor = new WPI_TalonSRX(Constants.conveyorMotor);
   private final SpeedController m_shootMotor = new WPI_TalonSRX(Constants.shootMotor);
+  
+  private DigitalInput recievingIntake = new DigitalInput(Constants.recievingIntake);
+  private DigitalInput recievingFill = new DigitalInput(Constants.recievingFill);
+  
   public PickUpSubsystem() {
 
   }
