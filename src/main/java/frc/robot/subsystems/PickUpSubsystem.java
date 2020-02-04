@@ -55,4 +55,22 @@ public class PickUpSubsystem extends SubsystemBase {
     m_shootMotor.set(0.0);
     m_shootMotor.stopMotor(); // Still still extra safe
   }
+
+  public String State(){
+    if(recievingFill.get() == true){   
+      return "Full";
+    }else if (recievingFill.get() == false){
+      if(recievingIntake.get() == false){
+        return "Active";    
+    
+      }else if(recievingIntake.get() == true){
+        return "Stowing";
+      }
+      //return "Empty";
+    }
+    return null;
+  }
+
+
+
 }
