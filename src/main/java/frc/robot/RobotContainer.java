@@ -123,9 +123,9 @@ public class RobotContainer {
 			drivePower = 0.0;
     }
     if (drivePower <= 0){
-      return Math.pow(drivePower, 2.5); // 3.0
+      return Math.pow(drivePower, 2.2); // 3.0
     } else {
-      return -Math.pow(drivePower, 2.5); // 3.0 // This bad boi inverts it so that we can go backwards
+      return -Math.pow(drivePower, 2.2); // 3.0 // This bad boi inverts it so that we can go backwards
     }
 		
 	}
