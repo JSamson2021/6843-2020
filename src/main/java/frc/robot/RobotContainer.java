@@ -97,12 +97,7 @@ public class RobotContainer {
 //  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
   new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
 
-
-
-
-
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
