@@ -29,11 +29,6 @@ public class PickupState extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-/*  if(m_pickUpSubsystem.State().equals("Empty")){    //commented out motor commands for when the pickup system is empty
-      m_pickUpSubsystem.stopConveyor();
-      m_pickUpSubsystem.stopPickup();
-
-    }else */
     if(m_pickUpSubsystem.State().equals("Active")){   //when the pickup system is "active" the pickup motor in front of the conveyor opening runs
       m_pickUpSubsystem.spinPickup(.25);
       m_pickUpSubsystem.stopConveyor();
@@ -52,8 +47,8 @@ public class PickupState extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   // m_pickUpSubsystem.stopConveyor(); // unsure if these are needed here but i added them anyway
-   // m_pickUpSubsystem.stopPickup();  //
+    m_pickUpSubsystem.stopConveyor(); 
+    m_pickUpSubsystem.stopPickup();  
 
   }
 
