@@ -42,9 +42,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftMotor1.setNeutralMode(NeutralMode.Brake);
     rightMotor1.setNeutralMode(NeutralMode.Brake);
+    leftMotor1.configOpenloopRamp(Constants.driveRamps);
+    rightMotor1.configOpenloopRamp(Constants.driveRamps);
 
     leftMotor2.follow(leftMotor1); // Tells the secondary motors to follow the TalonSRXs
-    rightMotor2.follow(rightMotor1); // "
+    rightMotor2.follow(rightMotor1); 
   
   }
 

@@ -117,11 +117,7 @@ public class RobotContainer {
 		if (Math.abs(drivePower) < DEAD_ZONE) {
 			drivePower = 0.0;
     }
-    if (drivePower <= 0){
-      return Math.pow(drivePower, 2.2); // 3.0
-    } else {
-      return -Math.pow(drivePower, 2.2); // 3.0 // This bad boi inverts it so that we can go backwards
-    }
+    return Math.pow(drivePower, 3); // 3.0 // This bad boi inverts it so that we can go backwards
 		
 	}
 
@@ -133,7 +129,7 @@ public class RobotContainer {
 		if (Math.abs(curvePower) < DEAD_ZONE) {
 			curvePower = 0.0;
 		}
-		return Math.pow(curvePower, 2.0); // 5.0
+		return Math.pow(curvePower, 3.0); // 5.0
 	}
 
 }
