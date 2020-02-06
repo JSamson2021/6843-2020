@@ -35,7 +35,7 @@ public final class Constants {
     public static int hangingTwoFirst = 1;  // Second stage solenoid for hang, parts one and two of double solenoid
     public static int hangingTwoSecond = 2; // Beep boob beep
     public static int hangingThreeFirst = 3;
-    public static int hangingThreeSecond = 4;
+    public static int hangingThreeSecond = 4; //"Hey Al, did you see the new episode of HaHa."
 
     // DIO Channels
     public static int hangLimit = 0;
