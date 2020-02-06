@@ -15,6 +15,7 @@ import frc.robot.commands.ClearGyroAndEncoders;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
 import frc.robot.commands.PickRobotUp;
+import frc.robot.commands.PickupState;
 import frc.robot.commands.ShootCells;
 import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.subsystems.ColorWheelSubsystem;
@@ -34,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  public static final double DEAD_ZONE = 0.1;
+  public static final double DEAD_ZONE = 0.07; // used to be 0.1
   public static final int DRIVE_AXIS = 1;
   public static final int CURVE_AXIS = 4;
   
@@ -90,7 +91,7 @@ public class RobotContainer {
   //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
   new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
   new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
-//  new JoystickButton(driver, Button.kY.value).whileHeld(new );
+  new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
 //  new JoystickButton(driver, Button.kStart.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kBack.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
@@ -120,8 +121,13 @@ public class RobotContainer {
 		double drivePower = -driver.getRawAxis(DRIVE_AXIS);
 		if (Math.abs(drivePower) < DEAD_ZONE) {
 			drivePower = 0.0;
-		}
-		return Math.pow(drivePower, 2.5); // 3.0
+    }
+    if (drivePower <= 0){
+      return Math.pow(drivePower, 2.5); // 3.0
+    } else {
+      return -Math.pow(drivePower, 2.5); // 3.0 // This bad boi inverts it so that we can go backwards
+    }
+		
 	}
 
 	/**
@@ -132,7 +138,7 @@ public class RobotContainer {
 		if (Math.abs(curvePower) < DEAD_ZONE) {
 			curvePower = 0.0;
 		}
-		return Math.pow(curvePower, 3.0); // 5.0
+		return Math.pow(curvePower, 2.0); // 5.0
 	}
 
 }

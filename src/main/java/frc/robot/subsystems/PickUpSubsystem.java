@@ -8,9 +8,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,8 +22,8 @@ public class PickUpSubsystem extends SubsystemBase {
    */
   
   private final SpeedController m_pickupMotor = new WPI_TalonSRX(Constants.pickupMotor);
-  private final SpeedController m_conveyorMotor = new WPI_TalonSRX(Constants.conveyorMotor);
-  private final SpeedController m_shootMotor = new WPI_TalonSRX(Constants.shootMotor);
+  private final SpeedController m_conveyorMotor = new WPI_VictorSPX(Constants.conveyorMotor);
+  private final SpeedController m_shootMotor = new WPI_VictorSPX(Constants.shootMotor);
   
   private DigitalInput recievingIntake = new DigitalInput(Constants.recievingIntake);
   private DigitalInput recievingFill = new DigitalInput(Constants.recievingFill);
@@ -33,6 +35,9 @@ public class PickUpSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Sensor 1", recievingIntake.get());
+
+    SmartDashboard.putBoolean("Sensor 2", recievingFill.get());
   }
   public void spinPickup(double speed){
     m_pickupMotor.set(speed);
@@ -55,4 +60,21 @@ public class PickUpSubsystem extends SubsystemBase {
     m_shootMotor.set(0.0);
     m_shootMotor.stopMotor(); // Still still extra safe
   }
+
+  public String State(){
+    if(recievingFill.get() != true){   // if the sensor at the end of the conveyor is broken the pickup system is "full"
+      return "Full";
+    }else if (recievingFill.get() != false){ // if the sensor at the end of the conveyor is not broken it checks for:
+      if(recievingIntake.get() != false){ // if the sensor at the begining of the conveyor is not broken the pickup system is "active"
+        return "Active";    
+    
+      }else if(recievingIntake.get() != true){ //if thte sensor at the begining of thte conveyor is broken the pickup system is "stowing"
+        return "Stowing";
+      }
+    }
+    return null;
+  }
+
+
+
 }
