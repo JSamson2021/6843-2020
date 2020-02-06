@@ -57,16 +57,16 @@ public class PickUpSubsystem extends SubsystemBase {
   }
 
   public String State(){
-    if(recievingFill.get() == true){   
+    if(recievingFill.get() == true){   // if the sensor at the end of the conveyor is broken the pickup system is "full"
       return "Full";
-    }else if (recievingFill.get() == false){
-      if(recievingIntake.get() == false){
+    }else if (recievingFill.get() == false){ // if the sensor at the end of the conveyor is not broken it checks for:
+      if(recievingIntake.get() == false){ // if the sensor at the begining of the conveyor is not broken the pickup system is "active"
         return "Active";    
     
-      }else if(recievingIntake.get() == true){
+      }else if(recievingIntake.get() == true){ //if thte sensor at the begining of thte conveyor is broken the pickup system is "stowing"
         return "Stowing";
       }
-      //return "Empty";
+      //return "Empty";    // commented out returning a value for when the pickup system is empty
     }
     return null;
   }
