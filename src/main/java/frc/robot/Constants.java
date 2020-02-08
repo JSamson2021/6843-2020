@@ -30,6 +30,8 @@ public final class Constants {
 
     public static int compressor = 0; // Compressor for pneumatics system
 
+    public static int pdpPort = 0; // Port of the Power Distribution Panel
+
     // PCM Channels
     public static int hangingOne = 0;  //First phase solenoid for hang
     public static int hangingTwoFirst = 1;  // Second stage solenoid for hang, parts one and two of double solenoid

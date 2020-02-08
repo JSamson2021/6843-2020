@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -70,6 +72,11 @@ public class ColorWheelSubsystem extends SubsystemBase {
       colorCounter = 0; 
       debouncedColor = currentColor;
     }
+
+    Shuffleboard.selectTab("TESTING");
+      SmartDashboard.putNumber("NumRotations", numRotations());
+      SmartDashboard.putString("DebouncedColor", debouncedColor.toString());
+
   }
 
   public Color matchColor(){
@@ -96,7 +103,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   }
 
-  public int numRotaions(){ //returns the amount of times the sensor sees the first color
+  public int numRotations(){ //returns the amount of times the sensor sees the first color
     
     String currentColor = colorToString(matchColor());
     String startColor = colorToString(debouncedColor);
@@ -109,5 +116,14 @@ public class ColorWheelSubsystem extends SubsystemBase {
       return rotationCount;
     }
      
+  }
+
+  public void spinColorWheel(double power){
+    colorSpinner.set(power);
+  }
+  
+  public void stopSpinning(){
+    colorSpinner.set(0.0);
+    colorSpinner.stopMotor();
   }
 }
