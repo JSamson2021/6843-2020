@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  public static final double DEAD_ZONE = 0.07; // used to be 0.1
+  public static final double DEAD_ZONE = 0.054321; // used to be 0.1
   public static final int DRIVE_AXIS = 1;
   public static final int CURVE_AXIS = 4;
   
@@ -90,8 +90,8 @@ public class RobotContainer {
   
   //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
   new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
-  new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
-  new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
+  //new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
+  //new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
 //  new JoystickButton(driver, Button.kStart.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kBack.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
@@ -117,19 +117,19 @@ public class RobotContainer {
 		if (Math.abs(drivePower) < DEAD_ZONE) {
 			drivePower = 0.0;
     }
-    return Math.pow(drivePower, 3); // 3.0 // This bad boi inverts it so that we can go backwards
+    return Math.pow((drivePower * 0.95) , 3.0); // 0.75 works
 		
 	}
 
 	/**
-	 * @return the drive power using inputs to the fifth.
+	 * @return the drive power using inputs to the third.
 	 */
 	public double getCurvePower() {
 		double curvePower = driver.getRawAxis(CURVE_AXIS);
 		if (Math.abs(curvePower) < DEAD_ZONE) {
 			curvePower = 0.0;
 		}
-		return Math.pow(curvePower, 3.0); // 5.0
+		return Math.pow((curvePower * 0.85) , 3.0); 
 	}
 
 }
