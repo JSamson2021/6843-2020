@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer;  
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,13 +32,20 @@ public class PickUpSubsystem extends SubsystemBase {
   
   public PickUpSubsystem() {
 
-    final UsbCamera visionCamera = CameraServer.getInstance().startAutomaticCapture(0);
+    final UsbCamera visionCamera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    final UsbCamera visionCamera2 = CameraServer.getInstance().startAutomaticCapture(0);
  
-   visionCamera.setFPS(20);
-   visionCamera.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-   visionCamera.setExposureManual(25);
-   visionCamera.setBrightness(25);
-   visionCamera.setWhiteBalanceManual(4500);
+   visionCamera1.setFPS(20);
+   visionCamera1.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+   visionCamera1.setExposureManual(25);
+   visionCamera1.setBrightness(25);
+   visionCamera1.setWhiteBalanceManual(4500);
+
+   visionCamera2.setFPS(20);
+   visionCamera2.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+   visionCamera2.setExposureManual(25);
+   visionCamera2.setBrightness(25);
+   visionCamera2.setWhiteBalanceManual(4500);
 
 
   }
