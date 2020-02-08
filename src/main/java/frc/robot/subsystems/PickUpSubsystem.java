@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +22,7 @@ public class PickUpSubsystem extends SubsystemBase {
   /**
    * Creates a new PickUpSubsystem.
    */
-  
+
   private final SpeedController m_pickupMotor = new WPI_TalonSRX(Constants.pickupMotor);
   private final SpeedController m_conveyorMotor = new WPI_VictorSPX(Constants.conveyorMotor);
   private final SpeedController m_shootMotor = new WPI_VictorSPX(Constants.shootMotor);
@@ -29,6 +31,15 @@ public class PickUpSubsystem extends SubsystemBase {
   private DigitalInput recievingFill = new DigitalInput(Constants.recievingFill);
   
   public PickUpSubsystem() {
+
+    final UsbCamera visionCamera = CameraServer.getInstance().startAutomaticCapture(0);
+ 
+   visionCamera.setFPS(20);
+   visionCamera.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
+   visionCamera.setExposureManual(25);
+   visionCamera.setBrightness(25);
+   visionCamera.setWhiteBalanceManual(4500);
+
 
   }
 
