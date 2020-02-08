@@ -50,6 +50,9 @@ public final class Constants {
     public static int debounceCount = 4; // The number of scheduler runs before the color is considered read (20 ms is 1 run)
     public static int driveRamps = 3; 
 
+    public static final int IMAGE_WIDTH = 320;
+    public static final int IMAGE_HEIGHT = 240;
+
 } 
 
 
