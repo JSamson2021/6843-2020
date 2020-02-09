@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorSensorV3;
 
 import com.revrobotics.ColorMatch;
@@ -26,7 +28,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
   /**
    * Creates a new ColorWheelSubsystem.
    */
-  private final WPI_TalonSRX colorSpinner = new WPI_TalonSRX(Constants.colorMotor);
+  private final WPI_VictorSPX colorSpinner = new WPI_VictorSPX(Constants.colorMotor);
   private final ColorSensorV3 cV3 = new ColorSensorV3(Port.kOnboard);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -51,6 +53,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
 
+    colorSpinner.setNeutralMode(NeutralMode.Brake);
 
 
   }
@@ -74,8 +77,12 @@ public class ColorWheelSubsystem extends SubsystemBase {
     }
 
     Shuffleboard.selectTab("TESTING");
-      SmartDashboard.putNumber("NumRotations", numRotations());
-      SmartDashboard.putString("DebouncedColor", debouncedColor.toString());
+      
+      if (debouncedColor != null){
+        SmartDashboard.putString("DebouncedColor", debouncedColor.toString());
+        SmartDashboard.putNumber("NumRotations", numRotations());
+      }
+        
 
   }
 

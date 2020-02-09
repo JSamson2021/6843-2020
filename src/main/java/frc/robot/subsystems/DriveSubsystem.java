@@ -121,6 +121,8 @@ public class DriveSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("Amps port 14", amperagePort14);
       SmartDashboard.putNumber("Amps port 15", amperagePort15);
 
+    
+
   }
 
   public void arcadeDrive(double power, double curve){

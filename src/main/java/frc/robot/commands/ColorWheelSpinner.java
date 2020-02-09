@@ -37,11 +37,11 @@ public class ColorWheelSpinner extends CommandBase {
   @Override
   public void execute() {
 
-    m_colorWheelSubsystem.spinColorWheel(.2); //start the motor
+    m_colorWheelSubsystem.spinColorWheel(1.0); //start the motor
   
-    if(m_colorWheelSubsystem.numRotations() > 6){
+    /* if(m_colorWheelSubsystem.numRotations() > 6){
       m_colorWheelSubsystem.stopSpinning(); //stops the motor when the wheel is spun three times  
-    }
+    } */ // TODO Uncomment after numRotations fixed
   }
 
 
