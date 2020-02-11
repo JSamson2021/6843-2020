@@ -13,6 +13,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -48,6 +49,15 @@ public class ColorWheelSubsystem extends SubsystemBase {
   ShuffleboardTab testTab = Shuffleboard.getTab(Constants.testTab);
 
   int rotationIncrease;
+
+  ColorMatchResult match;
+
+  private NetworkTableEntry rotationEntry = Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations(rotationIncrease)).getEntry();
+  private NetworkTableEntry redEntry = Shuffleboard.getTab(Constants.testTab).add("Red", debouncedColor.red).getEntry();
+  private NetworkTableEntry greenEntry = Shuffleboard.getTab(Constants.testTab).add("Green", debouncedColor.green).getEntry();
+  private NetworkTableEntry blueEntry = Shuffleboard.getTab(Constants.testTab).add("Blue", debouncedColor.blue).getEntry();
+  private NetworkTableEntry confidenceEntry = Shuffleboard.getTab(Constants.testTab).add("Confidence", match.confidence).getEntry();
+  private NetworkTableEntry detectedEntry = Shuffleboard.getTab(Constants.testTab).add("Detected Color", colorString).getEntry();
   
   public ColorWheelSubsystem() {
 
@@ -80,9 +90,6 @@ public class ColorWheelSubsystem extends SubsystemBase {
     }
 
     if (debouncedColor != null) {
-      Shuffleboard.getTab(Constants.testTab).add("DebouncedColor", debouncedColor.toString());
-      Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations(rotationIncrease));
-
       // Below here turns the color into a string with the correct name (Hopefully!)
       ColorMatchResult match = m_colorMatcher.matchClosestColor(debouncedColor);
 
@@ -97,17 +104,15 @@ public class ColorWheelSubsystem extends SubsystemBase {
       } else {
         colorString = "Unknown";
       } // End "Below here"
-
-      /**
-       * Here can be all the shuffleboard outputs for this subsystem. Use
-       * Shuffleboard.getTab(Constants.TabName*).add("Name*" , thingToAdd*)
-       */
-      Shuffleboard.getTab(Constants.testTab).add("Red", debouncedColor.red);
-      Shuffleboard.getTab(Constants.testTab).add("Green", debouncedColor.green);
-      Shuffleboard.getTab(Constants.testTab).add("Blue", debouncedColor.blue);
-      Shuffleboard.getTab(Constants.testTab).add("Confidence", match.confidence);
-      Shuffleboard.getTab(Constants.testTab).add("Detected Color", colorString);
     }
+
+    rotationEntry.setValue(numRotations(rotationIncrease));
+    redEntry.setDouble(debouncedColor.red);
+    greenEntry.setDouble(debouncedColor.green);
+    blueEntry.setDouble(debouncedColor.red);
+    confidenceEntry.setDouble(match.confidence);
+    detectedEntry.setString(colorString); 
+
   }
 
   public String firstCharString(String initialString) {

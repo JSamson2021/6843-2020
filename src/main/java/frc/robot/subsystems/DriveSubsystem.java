@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -54,6 +55,26 @@ public class DriveSubsystem extends SubsystemBase {
   Double amperagePort14;
   Double amperagePort15;
 
+
+  private NetworkTableEntry ampEntry0 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", amperagePort0).getEntry();
+  private NetworkTableEntry ampEntry1 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 1", amperagePort1).getEntry();
+  private NetworkTableEntry ampEntry2 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 2", amperagePort2).getEntry();
+  private NetworkTableEntry ampEntry3 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 3", amperagePort3).getEntry();
+  private NetworkTableEntry ampEntry4 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 4", amperagePort4).getEntry();
+  private NetworkTableEntry ampEntry5 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 5", amperagePort5).getEntry();
+  private NetworkTableEntry ampEntry6 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 6", amperagePort6).getEntry();
+  private NetworkTableEntry ampEntry7 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 7", amperagePort7).getEntry();
+  private NetworkTableEntry ampEntry8 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 8", amperagePort8).getEntry();
+  private NetworkTableEntry ampEntry9 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 9", amperagePort9).getEntry();
+  private NetworkTableEntry ampEntry10 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 10", amperagePort10).getEntry();
+  private NetworkTableEntry ampEntry11 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 11", amperagePort11).getEntry();
+  private NetworkTableEntry ampEntry12 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 12", amperagePort12).getEntry();
+  private NetworkTableEntry ampEntry13 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 13", amperagePort13).getEntry();
+  private NetworkTableEntry ampEntry14 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 14", amperagePort14).getEntry();
+  private NetworkTableEntry ampEntry15 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 15", amperagePort15).getEntry();
+
+
+
   public DriveSubsystem() {
 
     // Establishes encoders and tells Talons what they are
@@ -98,23 +119,23 @@ public class DriveSubsystem extends SubsystemBase {
     Double amperagePort14 = powerPanel.getCurrent(14);
     Double amperagePort15 = powerPanel.getCurrent(15);
 
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", amperagePort0);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 1", amperagePort1);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 2", amperagePort2);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 3", amperagePort3);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 4", amperagePort4);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 5", amperagePort5);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 6", amperagePort6);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 7", amperagePort7);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 8", amperagePort8);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 9", amperagePort9);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 10", amperagePort10);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 11", amperagePort11);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 12", amperagePort12);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 13", amperagePort13);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 14", amperagePort14);
-    Shuffleboard.getTab(Constants.ampTab).add("Amps port 15", amperagePort15);
-
+    // Apparently this is how you set values to the Shuffleboard
+    ampEntry0.setDouble(amperagePort0);
+    ampEntry1.setDouble(amperagePort1);
+    ampEntry2.setDouble(amperagePort2);
+    ampEntry3.setDouble(amperagePort3);
+    ampEntry4.setDouble(amperagePort4);
+    ampEntry5.setDouble(amperagePort5);
+    ampEntry6.setDouble(amperagePort6);
+    ampEntry7.setDouble(amperagePort7);
+    ampEntry8.setDouble(amperagePort8);
+    ampEntry9.setDouble(amperagePort9);
+    ampEntry10.setDouble(amperagePort10);
+    ampEntry11.setDouble(amperagePort11);
+    ampEntry12.setDouble(amperagePort12);
+    ampEntry13.setDouble(amperagePort13);
+    ampEntry14.setDouble(amperagePort14);
+    ampEntry15.setDouble(amperagePort15);
   }
 
   public void arcadeDrive(double power, double curve) {
