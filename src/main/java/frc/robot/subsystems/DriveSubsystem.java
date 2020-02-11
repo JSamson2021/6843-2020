@@ -27,7 +27,7 @@ public class DriveSubsystem extends SubsystemBase {
    * Creates a new DriveSubsystem.
    */
 
-  ShuffleboardTab testTab = Shuffleboard.getTab("TESTING");
+  ShuffleboardTab testTab = Shuffleboard.getTab(Constants.TestTab);
 
   private final AHRS gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
@@ -77,8 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic() { // This method will be called once per scheduler run
     SmartDashboard.putNumber("Right Encoder", rightMotor1.getSelectedSensorPosition());
     SmartDashboard.putNumber("Left Encoder", leftMotor1.getSelectedSensorPosition());
     SmartDashboard.putNumber("Gyro Yaw" , gyro.getAngle());
@@ -102,24 +101,24 @@ public class DriveSubsystem extends SubsystemBase {
     Double amperagePort14 = powerPanel.getCurrent(14);
     Double amperagePort15 = powerPanel.getCurrent(15);
 
-    Shuffleboard.selectTab("TESTING"); //* Anything under this line added to the SmartDashboard will be on TESTING tab *\\
+     //* Anything under this line added to the SmartDashboard will be on TESTING tab *\\
 
-      SmartDashboard.putNumber("Amps port 0", amperagePort0);
-      SmartDashboard.putNumber("Amps port 1", amperagePort1);
-      SmartDashboard.putNumber("Amps port 2", amperagePort2);
-      SmartDashboard.putNumber("Amps port 3", amperagePort3);
-      SmartDashboard.putNumber("Amps port 4", amperagePort4);
-      SmartDashboard.putNumber("Amps port 5", amperagePort5);
-      SmartDashboard.putNumber("Amps port 6", amperagePort6);
-      SmartDashboard.putNumber("Amps port 7", amperagePort7);
-      SmartDashboard.putNumber("Amps port 8", amperagePort8);
-      SmartDashboard.putNumber("Amps port 9", amperagePort9);
-      SmartDashboard.putNumber("Amps port 10", amperagePort10);
-      SmartDashboard.putNumber("Amps port 11", amperagePort11);
-      SmartDashboard.putNumber("Amps port 12", amperagePort12);
-      SmartDashboard.putNumber("Amps port 13", amperagePort13);
-      SmartDashboard.putNumber("Amps port 14", amperagePort14);
-      SmartDashboard.putNumber("Amps port 15", amperagePort15);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 0", amperagePort0);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 1", amperagePort1);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 2", amperagePort2);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 3", amperagePort3);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 4", amperagePort4);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 5", amperagePort5);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 6", amperagePort6);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 7", amperagePort7);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 8", amperagePort8);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 9", amperagePort9);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 10", amperagePort10);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 11", amperagePort11);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 12", amperagePort12);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 13", amperagePort13);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 14", amperagePort14);
+     Shuffleboard.getTab(Constants.TestTab).add("Amps port 15", amperagePort15);
 
     
 
