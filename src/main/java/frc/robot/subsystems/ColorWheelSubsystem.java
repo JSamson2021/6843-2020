@@ -40,11 +40,14 @@ public class ColorWheelSubsystem extends SubsystemBase {
   
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-  int rotationCount = 0;
+  // public int rotationCount = 0;
+
 
   Color sensorColor;
-  Color debouncedColor;
+  public Color debouncedColor;
   int colorCounter;
+
+  int rotationIncrease;
   
   public ColorWheelSubsystem() {
     
@@ -80,7 +83,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
       
       if (debouncedColor != null){
         SmartDashboard.putString("DebouncedColor", debouncedColor.toString());
-        SmartDashboard.putNumber("NumRotations", numRotations());
+        SmartDashboard.putNumber("NumRotations", numRotations(rotationIncrease));
       }
         
 
@@ -110,20 +113,12 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   }
 
-  public int numRotations(){ //returns the amount of times the sensor sees the first color
-    
-    String currentColor = colorToString(matchColor());
-    String startColor = colorToString(debouncedColor);
-
-    if(currentColor.equals(startColor) && startColor != null){
-      rotationCount++; //increases rotationCount everytime the sensor sees the first color
-      return rotationCount;
-    } else {
-      rotationCount = 0;
-      return rotationCount;
-    }
+  public int numRotations(int rotationIncrease){ // takes in the amount of times the sensor sees the first color and returns it's value 
+    int rotationNum = rotationIncrease; 
+    return rotationNum;
      
   }
+ 
 
   public void spinColorWheel(double power){
     colorSpinner.set(power);
