@@ -7,20 +7,17 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.util.Color;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.revrobotics.ColorSensorV3;
-
-import com.revrobotics.ColorMatch;
-
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -32,12 +29,11 @@ public class ColorWheelSubsystem extends SubsystemBase {
   private final ColorSensorV3 cV3 = new ColorSensorV3(Port.kOnboard);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private final Color kBlueTarget = ColorMatch.makeColor(0.121, 0.430, 0.447);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.165, 0.587, 0.249);
-  private final Color kRedTarget = ColorMatch.makeColor(0.520, 0.356, 0.125);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.320, 0.563, 0.114);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-  
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
   int rotationCount = 0;
@@ -45,16 +41,19 @@ public class ColorWheelSubsystem extends SubsystemBase {
   Color sensorColor;
   Color debouncedColor;
   int colorCounter;
-  
+
+  String colorString;
+
+  ShuffleboardTab testTab = Shuffleboard.getTab(Constants.testTab);
+
   public ColorWheelSubsystem() {
-    
+
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
 
     colorSpinner.setNeutralMode(NeutralMode.Brake);
-
 
   }
 
@@ -65,71 +64,87 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
     // This line through the next 11 lines are for color sensor debounce
     Color currentColor = cV3.getColor();
-    if (currentColor.equals(sensorColor) & sensorColor != null){ // Increments the counter if the color is the same as it was last scheduler run
+    if (currentColor.equals(sensorColor) & sensorColor != null) {
+      // Increments the counter if the color is the same as it was last scheduler run
       colorCounter++;
-    } else { // If the color has not been detected again, reset the color counter and set the new detected color
+    } else { // If the color is not the same, reset the color counter and use the new color
       colorCounter = 0;
-     sensorColor = currentColor;
+      sensorColor = currentColor;
     }
-    if (colorCounter > Constants.debounceCount) { // Confirms that the same color has been detected a certain number of times
-      colorCounter = 0; 
+    if (colorCounter > Constants.debounceCount) { // Confirms that the same color has been seen a given number of times
+      colorCounter = 0;
       debouncedColor = currentColor;
     }
 
-    Shuffleboard.selectTab("TESTING");
-      
-      if (debouncedColor != null){
-        SmartDashboard.putString("DebouncedColor", debouncedColor.toString());
-        SmartDashboard.putNumber("NumRotations", numRotations());
-      }
-        
+    if (debouncedColor != null) {
+      Shuffleboard.getTab(Constants.testTab).add("DebouncedColor", debouncedColor.toString());
+      Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations());
+
+      // Below here turns the color into a string with the correct name (Hopefully!)
+      ColorMatchResult match = m_colorMatcher.matchClosestColor(debouncedColor);
+
+      if (match.color == kBlueTarget) {
+        colorString = "Blue";
+      } else if (match.color == kRedTarget) {
+        colorString = "Red";
+      } else if (match.color == kGreenTarget) {
+        colorString = "Green";
+      } else if (match.color == kYellowTarget) {
+        colorString = "Yellow";
+      } else {
+        colorString = "Unknown";
+      } // End "Below here"
+
+      /**
+       * Here can be all the shuffleboard outputs for this subsystem. Use
+       * Shuffleboard.getTab(Constants.TabName*).add("Name*" , thingToAdd*)
+       */
+      Shuffleboard.getTab(Constants.testTab).add("Red", debouncedColor.red);
+      Shuffleboard.getTab(Constants.testTab).add("Green", debouncedColor.green);
+      Shuffleboard.getTab(Constants.testTab).add("Blue", debouncedColor.blue);
+      Shuffleboard.getTab(Constants.testTab).add("Confidence", match.confidence);
+      Shuffleboard.getTab(Constants.testTab).add("Detected Color", colorString);
+    }
 
   }
 
-  public Color matchColor(){
-    m_colorMatcher.setConfidenceThreshold(0.01);
-    Color match = m_colorMatcher.matchClosestColor(debouncedColor).color;
-    return match; // returns color the sensor is on
-  }
-
-  public String colorToString(Color input) {
-    String string1 = input.toString();
-    Character char1 = string1.charAt(1);
+  public String firstCharString(String initialString) {
+    Character char1 = initialString.charAt(1);
     String finalString = char1.toString();
-    return finalString; //returns a one character string for what color the sensor is on (B, G, R, or Y)
+    return finalString;
   }
 
-  public boolean onColor(){  //returns true if the sensor is on the color that we are given during the match
+  public boolean onColor() { // Returns true if the sensor is on the color that we are given during the match
     if (gameData != null) {
       return false;
-    } else if (gameData.equals(colorToString(matchColor()))) {
-        return true;
+    } else if (gameData.equals(firstCharString(colorString))) {
+      return true;
     } else {
       return false;
     }
 
   }
 
-  public int numRotations(){ //returns the amount of times the sensor sees the first color
-    
-    String currentColor = colorToString(matchColor());
-    String startColor = colorToString(debouncedColor);
+  public int numRotations() { // Returns the amount of times the sensor sees the first color
 
-    if(currentColor.equals(startColor) && startColor != null){
-      rotationCount++; //increases rotationCount everytime the sensor sees the first color
+    String currentColor = firstCharString(colorString);
+    String startColor = firstCharString(colorString);
+
+    if (currentColor.equals(startColor) && startColor != null) {
+      rotationCount++; // Increases rotationCount everytime the sensor sees the first color
       return rotationCount;
     } else {
       rotationCount = 0;
       return rotationCount;
     }
-     
+
   }
 
-  public void spinColorWheel(double power){
+  public void spinColorWheel(double power) {
     colorSpinner.set(power);
   }
-  
-  public void stopSpinning(){
+
+  public void stopSpinning() {
     colorSpinner.set(0.0);
     colorSpinner.stopMotor();
   }

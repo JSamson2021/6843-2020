@@ -8,12 +8,14 @@
 package frc.robot;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
     // CAN Channels
@@ -33,11 +35,11 @@ public final class Constants {
     public static int pdpPort = 0; // Port of the Power Distribution Panel
 
     // PCM Channels
-    public static int hangingOne = 0;  //First phase solenoid for hang
-    public static int hangingTwoFirst = 1;  // Second stage solenoid for hang, parts one and two of double solenoid
+    public static int hangingOne = 0; // First phase solenoid for hang
+    public static int hangingTwoFirst = 1; // Second stage solenoid for hang, parts one and two of double solenoid
     public static int hangingTwoSecond = 2; // Beep boob beep
     public static int hangingThreeFirst = 3;
-    public static int hangingThreeSecond = 4; //"Hey Al, did you see the new episode of HaHa."
+    public static int hangingThreeSecond = 4; // Nope
 
     // DIO Channels
     public static int hangLimit = 0;
@@ -48,16 +50,16 @@ public final class Constants {
     public static int emittingIntake = 3;
     public static int emittingFill = 5;
 
-    // Constants for things other than ports 
-    public static int debounceCount = 4; // The number of scheduler runs before the color is considered read (20 ms is 1 run)
-    public static int driveRamps = 3; 
+    // Constants for things other than ports
+    public static int debounceCount = 4; // The number of runs before the color is considered read (20 ms is 1 run)
+    public static int driveRamps = 3;
 
     public static final int IMAGE_WIDTH = 320;
     public static final int IMAGE_HEIGHT = 240;
 
-    public static final String TestTab = "TESTING";
+    public static final String testTab = "TESTING";
+    public static final String ampTab = "AMPS";
 
-} 
-
+}
 
 // Stink

@@ -17,16 +17,19 @@ public class JoystickArcadeDrive extends CommandBase {
   final DriveSubsystem m_driveSubsystem;
   final Supplier<Double> m_powerSupplier;
   final Supplier<Double> m_curveSupplier;
+
   /**
    * Creates a new JoystickArcadeDrive.
    */
-  public JoystickArcadeDrive(DriveSubsystem driveSubsystem, Supplier<Double> powerSupplier, Supplier<Double> curveSupplier) {
+  public JoystickArcadeDrive(DriveSubsystem driveSubsystem, 
+      Supplier<Double> powerSupplier,
+      Supplier<Double> curveSupplier) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
     m_powerSupplier = powerSupplier;
     m_curveSupplier = curveSupplier;
     addRequirements(driveSubsystem);
-    
+
   }
 
   // Called when the command is initially scheduled.
