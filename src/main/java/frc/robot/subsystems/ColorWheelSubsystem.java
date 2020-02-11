@@ -36,16 +36,19 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-  int rotationCount = 0;
+  // public int rotationCount = 0;
+
 
   Color sensorColor;
-  Color debouncedColor;
+  public Color debouncedColor;
   int colorCounter;
 
   String colorString;
 
   ShuffleboardTab testTab = Shuffleboard.getTab(Constants.testTab);
 
+  int rotationIncrease;
+  
   public ColorWheelSubsystem() {
 
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -78,7 +81,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
     if (debouncedColor != null) {
       Shuffleboard.getTab(Constants.testTab).add("DebouncedColor", debouncedColor.toString());
-      Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations());
+      Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations(rotationIncrease));
 
       // Below here turns the color into a string with the correct name (Hopefully!)
       ColorMatchResult match = m_colorMatcher.matchClosestColor(debouncedColor);
@@ -105,7 +108,6 @@ public class ColorWheelSubsystem extends SubsystemBase {
       Shuffleboard.getTab(Constants.testTab).add("Confidence", match.confidence);
       Shuffleboard.getTab(Constants.testTab).add("Detected Color", colorString);
     }
-
   }
 
   public String firstCharString(String initialString) {
@@ -125,20 +127,12 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   }
 
-  public int numRotations() { // Returns the amount of times the sensor sees the first color
-
-    String currentColor = firstCharString(colorString);
-    String startColor = firstCharString(colorString);
-
-    if (currentColor.equals(startColor) && startColor != null) {
-      rotationCount++; // Increases rotationCount everytime the sensor sees the first color
-      return rotationCount;
-    } else {
-      rotationCount = 0;
-      return rotationCount;
-    }
-
+  public int numRotations(int rotationIncrease){ // takes in the amount of times the sensor sees the first color and returns it's value 
+    int rotationNum = rotationIncrease; 
+    return rotationNum;
+     
   }
+ 
 
   public void spinColorWheel(double power) {
     colorSpinner.set(power);

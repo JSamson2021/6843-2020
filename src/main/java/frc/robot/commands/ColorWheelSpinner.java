@@ -24,11 +24,13 @@ public class ColorWheelSpinner extends CommandBase {
     
   }
 
-  
-  
+  public String startColor;
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
+    String startColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.debouncedColor); //assigns the debounced color to startColor  
   }
 
 
@@ -37,11 +39,20 @@ public class ColorWheelSpinner extends CommandBase {
   @Override
   public void execute() {
 
-    m_colorWheelSubsystem.spinColorWheel(1.0); //start the motor
-  
-    /* if(m_colorWheelSubsystem.numRotations() > 6){
+    int rotationCount = 0;
+    String seenColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.matchColor()); 
+    
+    m_colorWheelSubsystem.spinColorWheel(1.0); //starts the motor
+
+    if(seenColor.equals(startColor) && startColor != null ){
+      rotationCount++; //increases rotationCount everytime the sensor sees the first color
+    }
+
+     
+    if(m_colorWheelSubsystem.numRotations(rotationCount) > 6){
       m_colorWheelSubsystem.stopSpinning(); //stops the motor when the wheel is spun three times  
-    } */ // TODO Uncomment after numRotations fixed
+    } 
+     // TODO Uncomment after numRotations fixed
   }
 
 
