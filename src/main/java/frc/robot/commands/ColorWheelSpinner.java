@@ -16,6 +16,7 @@ public class ColorWheelSpinner extends CommandBase {
    */
   
    private final ColorWheelSubsystem m_colorWheelSubsystem;
+   int rotationCount;
 
   public ColorWheelSpinner(ColorWheelSubsystem colorWheelSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,30 +30,28 @@ public class ColorWheelSpinner extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    String startColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.debouncedColor); //assigns the debounced color to startColor  
+    int rotationCount = 0;
+    String startColor = m_colorWheelSubsystem.firstCharString(m_colorWheelSubsystem.colorString); // Assigns the debounced color to startColor  
   }
 
 
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() { 
 
-    int rotationCount = 0;
-    String seenColor = m_colorWheelSubsystem.colorToString(m_colorWheelSubsystem.matchColor()); 
+    String seenColor = m_colorWheelSubsystem.firstCharString(m_colorWheelSubsystem.colorString); 
     
-    m_colorWheelSubsystem.spinColorWheel(1.0); //starts the motor
+    m_colorWheelSubsystem.spinColorWheel(1.0); // Starts the motor
 
     if(seenColor.equals(startColor) && startColor != null ){
-      rotationCount++; //increases rotationCount everytime the sensor sees the first color
+      rotationCount++; // Increases rotationCount everytime the sensor sees the first color
     }
 
      
-    if(m_colorWheelSubsystem.numRotations(rotationCount) > 6){
-      m_colorWheelSubsystem.stopSpinning(); //stops the motor when the wheel is spun three times  
+    if(m_colorWheelSubsystem.numRotations(rotationCount) > 7){
+      m_colorWheelSubsystem.stopSpinning(); // Stops the motor when the wheel is spun three and a half times  
     } 
-     // TODO Uncomment after numRotations fixed
   }
 
 

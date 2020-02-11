@@ -43,7 +43,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
   public Color debouncedColor;
   int colorCounter;
 
-  String colorString;
+  public String colorString;
 
   ShuffleboardTab testTab = Shuffleboard.getTab(Constants.testTab);
 
