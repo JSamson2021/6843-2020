@@ -55,23 +55,23 @@ public class DriveSubsystem extends SubsystemBase {
   Double amperagePort14;
   Double amperagePort15;
 
-
-  private NetworkTableEntry ampEntry0 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", amperagePort0).getEntry();
-  private NetworkTableEntry ampEntry1 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 1", amperagePort1).getEntry();
-  private NetworkTableEntry ampEntry2 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 2", amperagePort2).getEntry();
-  private NetworkTableEntry ampEntry3 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 3", amperagePort3).getEntry();
-  private NetworkTableEntry ampEntry4 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 4", amperagePort4).getEntry();
-  private NetworkTableEntry ampEntry5 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 5", amperagePort5).getEntry();
-  private NetworkTableEntry ampEntry6 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 6", amperagePort6).getEntry();
-  private NetworkTableEntry ampEntry7 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 7", amperagePort7).getEntry();
-  private NetworkTableEntry ampEntry8 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 8", amperagePort8).getEntry();
-  private NetworkTableEntry ampEntry9 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 9", amperagePort9).getEntry();
-  private NetworkTableEntry ampEntry10 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 10", amperagePort10).getEntry();
-  private NetworkTableEntry ampEntry11 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 11", amperagePort11).getEntry();
-  private NetworkTableEntry ampEntry12 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 12", amperagePort12).getEntry();
-  private NetworkTableEntry ampEntry13 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 13", amperagePort13).getEntry();
-  private NetworkTableEntry ampEntry14 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 14", amperagePort14).getEntry();
-  private NetworkTableEntry ampEntry15 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 15", amperagePort15).getEntry();
+// All of these can never have null values, so I set them all to 6.9, but they will refresh after 20ms
+  private NetworkTableEntry ampEntry0 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", 6.9).getEntry();
+  private NetworkTableEntry ampEntry1 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 1", 6.9).getEntry();
+  private NetworkTableEntry ampEntry2 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 2", 6.9).getEntry();
+  private NetworkTableEntry ampEntry3 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 3", 6.9).getEntry();
+  private NetworkTableEntry ampEntry4 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 4", 6.9).getEntry();
+  private NetworkTableEntry ampEntry5 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 5", 6.9).getEntry();
+  private NetworkTableEntry ampEntry6 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 6", 6.9).getEntry();
+  private NetworkTableEntry ampEntry7 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 7", 6.9).getEntry();
+  private NetworkTableEntry ampEntry8 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 8", 6.9).getEntry();
+  private NetworkTableEntry ampEntry9 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 9", 6.9).getEntry();
+  private NetworkTableEntry ampEntry10 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 10", 6.9).getEntry();
+  private NetworkTableEntry ampEntry11 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 11", 6.9).getEntry();
+  private NetworkTableEntry ampEntry12 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 12", 6.9).getEntry();
+  private NetworkTableEntry ampEntry13 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 13", 6.9).getEntry();
+  private NetworkTableEntry ampEntry14 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 14", 6.9).getEntry();
+  private NetworkTableEntry ampEntry15 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 15", 6.9).getEntry();
 
 
 

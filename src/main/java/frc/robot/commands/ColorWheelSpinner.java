@@ -6,8 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Constants;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class ColorWheelSpinner extends CommandBase {
@@ -18,20 +20,26 @@ public class ColorWheelSpinner extends CommandBase {
    private final ColorWheelSubsystem m_colorWheelSubsystem;
    int rotationCount;
 
+   private NetworkTableEntry rotationEntry = Shuffleboard.getTab(Constants.colorWheelTab).add("NumRotations", 0).getEntry();
+   private NetworkTableEntry startColorEntry = Shuffleboard.getTab(Constants.colorWheelTab).add("StartColor", "Null").getEntry();
+   private NetworkTableEntry seenColorEntry = Shuffleboard.getTab(Constants.colorWheelTab).add("SeenColor", "Null").getEntry();
+
+
   public ColorWheelSpinner(ColorWheelSubsystem colorWheelSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_colorWheelSubsystem = colorWheelSubsystem;
     addRequirements(colorWheelSubsystem);
     
   }
-
+  boolean searching; 
   public String startColor;
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    int rotationCount = 0;
-    String startColor = m_colorWheelSubsystem.firstCharString(m_colorWheelSubsystem.colorString); // Assigns the debounced color to startColor  
+    rotationCount = 0;
+    startColor = m_colorWheelSubsystem.firstCharString(m_colorWheelSubsystem.colorString); // Assigns the debounced color to startColor  
+    searching = false; 
   }
 
 
@@ -44,14 +52,16 @@ public class ColorWheelSpinner extends CommandBase {
     
     m_colorWheelSubsystem.spinColorWheel(1.0); // Starts the motor
 
-    if(seenColor.equals(startColor) && startColor != null ){
+    if(seenColor.equals(startColor) && startColor != null && searching){
       rotationCount++; // Increases rotationCount everytime the sensor sees the first color
+      searching = false; 
+    }else if(!seenColor.equals(startColor)){
+      searching = true;
     }
 
-     
-    if(m_colorWheelSubsystem.numRotations(rotationCount) > 7){
-      m_colorWheelSubsystem.stopSpinning(); // Stops the motor when the wheel is spun three and a half times  
-    } 
+    rotationEntry.setValue(rotationCount);
+    startColorEntry.setString(startColor == null ? "Null" : startColor);
+    seenColorEntry.setString(seenColor == null ? "Null" : seenColor);
   }
 
 
@@ -67,6 +77,6 @@ public class ColorWheelSpinner extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_colorWheelSubsystem.numRotations(rotationCount) > 7; // Stops the motor when the wheel is spun three and a half times 
   }
 }

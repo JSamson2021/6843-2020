@@ -52,12 +52,16 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   ColorMatchResult match;
 
-  private NetworkTableEntry rotationEntry = Shuffleboard.getTab(Constants.testTab).add("NumRotations", numRotations(rotationIncrease)).getEntry();
-  private NetworkTableEntry redEntry = Shuffleboard.getTab(Constants.testTab).add("Red", debouncedColor.red).getEntry();
-  private NetworkTableEntry greenEntry = Shuffleboard.getTab(Constants.testTab).add("Green", debouncedColor.green).getEntry();
-  private NetworkTableEntry blueEntry = Shuffleboard.getTab(Constants.testTab).add("Blue", debouncedColor.blue).getEntry();
-  private NetworkTableEntry confidenceEntry = Shuffleboard.getTab(Constants.testTab).add("Confidence", match.confidence).getEntry();
-  private NetworkTableEntry detectedEntry = Shuffleboard.getTab(Constants.testTab).add("Detected Color", colorString).getEntry();
+  // All of these can never have null values, so I set them all to 6.9, but they will refresh after 20ms
+  private NetworkTableEntry redEntry = Shuffleboard.getTab(Constants.testTab).add("Red", 6.9).getEntry();
+  private NetworkTableEntry greenEntry = Shuffleboard.getTab(Constants.testTab).add("Green", 6.9).getEntry();
+  private NetworkTableEntry blueEntry = Shuffleboard.getTab(Constants.testTab).add("Blue", 6.9).getEntry();
+  private NetworkTableEntry confidenceEntry = Shuffleboard.getTab(Constants.testTab).add("Confidence", 6.9).getEntry();
+  private NetworkTableEntry detectedEntry = Shuffleboard.getTab(Constants.testTab).add("Detected Color", "firstvalue").getEntry();
+
+  private NetworkTableEntry redReadEntry = Shuffleboard.getTab(Constants.testTab).add("SensorRed", cV3.getColor().red).getEntry();
+  private NetworkTableEntry greenReadEntry = Shuffleboard.getTab(Constants.testTab).add("SensorGreen", cV3.getColor().green).getEntry();
+  private NetworkTableEntry blueReadEntry = Shuffleboard.getTab(Constants.testTab).add("SensorBlue", cV3.getColor().blue).getEntry();
   
   public ColorWheelSubsystem() {
 
@@ -104,19 +108,22 @@ public class ColorWheelSubsystem extends SubsystemBase {
       } else {
         colorString = "Unknown";
       } // End "Below here"
+
+      redEntry.setDouble(debouncedColor.red);
+      greenEntry.setDouble(debouncedColor.green);
+      blueEntry.setDouble(debouncedColor.red);
+      confidenceEntry.setDouble(match.confidence);
+      detectedEntry.setString(colorString); 
+
+      redReadEntry.setDouble(cV3.getColor().red);
+      greenReadEntry.setDouble(cV3.getColor().green);
+      blueReadEntry.setDouble(cV3.getColor().blue);
+
     }
-
-    rotationEntry.setValue(numRotations(rotationIncrease));
-    redEntry.setDouble(debouncedColor.red);
-    greenEntry.setDouble(debouncedColor.green);
-    blueEntry.setDouble(debouncedColor.red);
-    confidenceEntry.setDouble(match.confidence);
-    detectedEntry.setString(colorString); 
-
   }
 
   public String firstCharString(String initialString) {
-    Character char1 = initialString.charAt(1);
+    Character char1 = initialString.charAt(0);
     String finalString = char1.toString();
     return finalString;
   }

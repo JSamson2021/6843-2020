@@ -51,14 +51,15 @@ public final class Constants {
     public static int emittingFill = 5;
 
     // Constants for things other than ports
-    public static int debounceCount = 4; // The number of runs before the color is considered read (20 ms is 1 run)
-    public static int driveRamps = 3;
+    public static int debounceCount = 3; // The number of runs before the color is considered read (20 ms is 1 run)
+    public static int driveRamps = 0;
 
     public static final int IMAGE_WIDTH = 320;
     public static final int IMAGE_HEIGHT = 240;
 
     public static final String testTab = "TESTING";
     public static final String ampTab = "AMPS";
+    public static final String colorWheelTab = "ColorWheel";
 
 }
 

@@ -89,13 +89,16 @@ public class RobotContainer {
   // Section for Controls, WHILE HELD
   
   //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
-  new JoystickButton(driver, Button.kB.value).whileHeld(new ColorWheelSpinner(m_colorWheelSubsystem));
+  
   //new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
   //new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
 //  new JoystickButton(driver, Button.kStart.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kBack.value).whileHeld(new );
 //  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
   new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
+
+  // Section for controls, TOGLLE
+  new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
 
   }
 

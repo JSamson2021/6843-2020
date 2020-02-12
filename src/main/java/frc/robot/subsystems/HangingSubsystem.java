@@ -60,7 +60,6 @@ public class HangingSubsystem extends SubsystemBase {
   public void releaseHangingMech(){
     secondStage.set(Value.kOff);
     secondStage2.set(Value.kOff); 
-    firstStage.set(false);
   }
 
   public void pullRobotUp(){ // FIXME Encoder Values are wrong
