@@ -33,6 +33,7 @@ public class HangingSubsystem extends SubsystemBase {
   private SpeedController pullCon2 = pullMotor2;
 
   private DigitalInput hangLimit = new DigitalInput(Constants.hangLimit);
+  private DigitalInput pivotLimit = new DigitalInput(Constants.pivotLimit);
   
   public HangingSubsystem() {
     pullMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0); // Tell the motor controllers that there are encoders connected to them
@@ -65,17 +66,40 @@ public class HangingSubsystem extends SubsystemBase {
   public void pullRobotUp(){ // FIXME Encoder Values are wrong
     if (hangLimit.get() == true){
       pullCon.set(0.0);
-      pullCon.stopMotor(); // Just to be extra safe
+      pullCon.stopMotor();
+      pullCon2.set(0.0);
+      pullCon2.stopMotor(); // Just to be extra safe
     } else if (pullMotor.getSelectedSensorPosition() < 100){
-      pullCon.set(.2);
+      pullCon.set(.3);
+      pullCon2.set(.3);
     } else if (pullMotor.getSelectedSensorPosition() >= 100){
       pullCon.set(0.0);
-      pullCon.stopMotor(); // Just to be extra safe again 
+      pullCon.stopMotor();
+      pullCon2.set(0.0);
+      pullCon2.stopMotor(); // Just to be extra safe again 
     } else {
       pullCon.set(0.0);
-      pullCon.stopMotor(); // Just to be extra safe again again 
+      pullCon.stopMotor();
+      pullCon2.set(0.0);
+      pullCon2.stopMotor(); // Just to be extra safe again again 
     }
   }
-  
-// poopoopopopoopoppoppooopopopopp poopopopoooppoooopopoopopopooopoopooopoopoopoopoopoopopooop
+
+  public Boolean isHung() {
+    return hangLimit.get();
+  }
+
+  public Boolean isVertical() {
+    return pivotLimit.get();
+  }
+
+  public void hangDrive(double leftDrive, double rightDrive) {
+    pullCon.set(leftDrive);
+    pullCon2.set(rightDrive);
+  }
+
+  public Boolean pneumaticsCharged(){
+    return compressor.getPressureSwitchValue();
+  }
+
 }

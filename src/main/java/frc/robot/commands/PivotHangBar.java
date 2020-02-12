@@ -9,28 +9,27 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangingSubsystem;
-public class PickRobotUp extends CommandBase {
+
+public class PivotHangBar extends CommandBase {
   final HangingSubsystem m_hangingSubsystem;
   /**
-   * Creates a new PickRobotUp.
+   * Creates a new PivotHangBar.
    */
-  public PickRobotUp(HangingSubsystem hangingSubsystem) {
+  public PivotHangBar(HangingSubsystem hangingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hangingSubsystem = hangingSubsystem;
     addRequirements(hangingSubsystem);
-    // pneumatics stuff
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_hangingSubsystem.releaseHangingMech();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hangingSubsystem.pullRobotUp();
+    m_hangingSubsystem.hangPhaseOne();
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +40,6 @@ public class PickRobotUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_hangingSubsystem.isHung();
+    return m_hangingSubsystem.isVertical();
   }
 }

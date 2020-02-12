@@ -10,20 +10,25 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+
 import frc.robot.commands.CellIntake;
 import frc.robot.commands.ClearGyroAndEncoders;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.JoystickArcadeDrive;
+import frc.robot.commands.ManualBalanceHang;
 import frc.robot.commands.PickRobotUp;
 import frc.robot.commands.PickupState;
+import frc.robot.commands.PivotHangBar;
 import frc.robot.commands.ShootCells;
 import frc.robot.commands.ColorWheelSpinner;
+import frc.robot.commands.DeployHooks;
+
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PickUpSubsystem;
 import frc.robot.subsystems.HangingSubsystem;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -38,11 +43,6 @@ public class RobotContainer {
   public static final double DEAD_ZONE = 0.054321; // used to be 0.1
   public static final int DRIVE_AXIS = 1;
   public static final int CURVE_AXIS = 4;
-  
-  
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final ColorWheelSubsystem m_colorWheelSubsystem = new ColorWheelSubsystem();
 
@@ -78,23 +78,13 @@ public class RobotContainer {
 	
 	// Section for Controls, WHEN PRESSED
   new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem));
-//  new JoystickButton(driver, Button.kB.value).whenPressed(new );
-//  new JoystickButton(driver, Button.kX.value).whenPressed(new );
-//  new JoystickButton(driver, Button.kY.value).whenPressed(new );
-//  new JoystickButton(driver, Button.kStart.value).whenPressed(new );
-//  new JoystickButton(driver, Button.kBack.value).whenPressed(new );
-  new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new PickRobotUp(m_hangingSubsystem));
-//  new JoystickButton(driver, Button.kBumperLeft.value).whenPressed(new );
+  new JoystickButton(driver, Button.kStart.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem), new DeployHooks(m_hangingSubsystem)));
+  new JoystickButton(driver, Button.kBack.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
+  //new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new );
 
   // Section for Controls, WHILE HELD
-  
-  //new JoystickButton(driver, Button.kA.value).whileHeld(new ); 
-  
-  //new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
-  //new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
-//  new JoystickButton(driver, Button.kStart.value).whileHeld(new );
-//  new JoystickButton(driver, Button.kBack.value).whileHeld(new );
-//  new JoystickButton(driver, Button.kStickRight.value).whenHeld(new );
+  new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
+  new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
   new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
 
   // Section for controls, TOGLLE
@@ -109,7 +99,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_driveCommand;
   }
 
   /**
@@ -117,7 +107,7 @@ public class RobotContainer {
 	 */
 	public double getDrivePower() {
 		double drivePower = -driver.getRawAxis(DRIVE_AXIS);
-		if (Math.abs(drivePower) < DEAD_ZONE) {
+		if (Math.abs(drivePower) < DEAD_ZONE) { 
 			drivePower = 0.0;
     }
     return Math.pow((drivePower * 0.95) , 3.0); // 0.75 works
@@ -133,6 +123,22 @@ public class RobotContainer {
 			curvePower = 0.0;
 		}
 		return Math.pow((curvePower * 0.85) , 3.0); 
-	}
+  }
+  
+  public double getSecondaryLeftStick() {
+    double leftStick = secondary.getRawAxis(DRIVE_AXIS);
+    if (Math.abs(leftStick) < DEAD_ZONE) {
+			leftStick = 0.0;
+    }
+    return Math.pow((leftStick * 0.9), 3.0);
+  }
+
+  public double getSecondaryRightStick() {
+    double rightStick = secondary.getRawAxis(CURVE_AXIS);
+    if (Math.abs(rightStick) < DEAD_ZONE) {
+			rightStick = 0.0;
+    }
+    return Math.pow((rightStick * 0.9), 3.0);
+  }
 
 }

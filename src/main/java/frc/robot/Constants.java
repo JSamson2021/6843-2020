@@ -50,6 +50,8 @@ public final class Constants {
     public static int emittingIntake = 3;
     public static int emittingFill = 5;
 
+    public static int pivotLimit = 6;
+
     // Constants for things other than ports
     public static int debounceCount = 3; // The number of runs before the color is considered read (20 ms is 1 run)
     public static int driveRamps = 0;

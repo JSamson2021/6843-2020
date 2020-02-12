@@ -7,30 +7,37 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangingSubsystem;
-public class PickRobotUp extends CommandBase {
+
+public class ManualBalanceHang extends CommandBase {
   final HangingSubsystem m_hangingSubsystem;
+  final Supplier<Double> m_rightHook;
+  final Supplier<Double> m_leftHook;
   /**
-   * Creates a new PickRobotUp.
+   * Creates a new ManualBalanceHang.
    */
-  public PickRobotUp(HangingSubsystem hangingSubsystem) {
+  public ManualBalanceHang(HangingSubsystem hangingSubsystem,
+      Supplier<Double> rightHook,
+      Supplier<Double> leftHook) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hangingSubsystem = hangingSubsystem;
+    m_rightHook = rightHook;
+    m_leftHook = leftHook;
     addRequirements(hangingSubsystem);
-    // pneumatics stuff
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_hangingSubsystem.releaseHangingMech();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hangingSubsystem.pullRobotUp();
+    m_hangingSubsystem.hangDrive(m_leftHook.get(), m_rightHook.get());
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +48,6 @@ public class PickRobotUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_hangingSubsystem.isHung();
+    return false;
   }
 }
