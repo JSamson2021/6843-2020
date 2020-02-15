@@ -48,8 +48,6 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   ShuffleboardTab testTab = Shuffleboard.getTab(Constants.testTab);
 
-  int rotationIncrease;
-
   ColorMatchResult match;
 
   // All of these can never have null values, so I set them all to 6.9, but they will refresh after 20ms
@@ -143,6 +141,33 @@ public class ColorWheelSubsystem extends SubsystemBase {
     int rotationNum = rotationIncrease; 
     return rotationNum;
      
+  }
+
+  public String colorTwoOver(String gameColor){
+    if(gameColor.equals("G")){
+      return "Y";
+    
+    }else if(gameColor.equals("B")){
+      return "R";
+    
+    }else if(gameColor.equals("Y")){
+      return "G";
+    
+    }else if(gameColor.equals("R")){
+      return "B";
+    
+    }else{
+      return "U";
+    }
+   
+  }
+
+  public boolean onColorTwoOver(){
+    if(firstCharString(colorString).equals(colorTwoOver(gameData))){
+      return true;
+    }else{ 
+      return false;
+    }
   }
  
 
