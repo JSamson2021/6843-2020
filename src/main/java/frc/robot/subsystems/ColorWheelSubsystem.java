@@ -37,7 +37,6 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
   private String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-  // public int rotationCount = 0;
 
 
   Color sensorColor;
@@ -120,7 +119,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
     }
   }
 
-  public String firstCharString(String initialString) {
+  public String firstCharString(String initialString) {  //takes in a string and returns the first letter of it
     Character char1 = initialString.charAt(0);
     String finalString = char1.toString();
     return finalString;
@@ -143,7 +142,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
      
   }
 
-  public String colorTwoOver(String gameColor){
+  public String colorTwoOver(String gameColor){ // takes in the color we are given and returns the color two away from it 
     if(gameColor.equals("G")){
       return "Y";
     
@@ -162,7 +161,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
    
   }
 
-  public boolean onColorTwoOver(){
+  public boolean onColorTwoOver(){ // returns true if the sensor is on the color it needs to be on for the color positioning 
     if(firstCharString(colorString).equals(colorTwoOver(gameData))){
       return true;
     }else{ 
