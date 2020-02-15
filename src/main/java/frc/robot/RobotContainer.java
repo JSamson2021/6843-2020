@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 
 import frc.robot.commands.CellIntake;
 import frc.robot.commands.ClearGyroAndEncoders;
+import frc.robot.commands.ColorPosition;
 import frc.robot.commands.JoystickArcadeDrive;
 import frc.robot.commands.ManualBalanceHang;
 import frc.robot.commands.PickRobotUp;
@@ -89,6 +90,7 @@ public class RobotContainer {
 
   // Section for controls, TOGLLE
   new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
+  new JoystickButton(driver, Button.kBumperRight.value).toggleWhenPressed(new ColorPosition(m_colorWheelSubsystem));
 
   }
 
