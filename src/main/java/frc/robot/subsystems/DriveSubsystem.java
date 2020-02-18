@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -86,12 +87,26 @@ public class DriveSubsystem extends SubsystemBase {
     // Sets the ramp to 0 and control mode to brake, so the motors stop when we say
     leftMotor1.configOpenloopRamp(0);
     rightMotor1.configOpenloopRamp(0);
+    leftMotor2.configOpenloopRamp(0);
+    rightMotor2.configOpenloopRamp(0);
     leftMotor1.setNeutralMode(NeutralMode.Brake);
     rightMotor1.setNeutralMode(NeutralMode.Brake);
+    leftMotor2.setNeutralMode(NeutralMode.Brake);
+    rightMotor2.setNeutralMode(NeutralMode.Brake);
 
     leftMotor2.follow(leftMotor1); // Tells the secondary motors to follow the TalonSRXs
     rightMotor2.follow(rightMotor1);
 
+    // Set PID values for velocity control.
+    // THESE ARE GUESSES RIGHT NOW.
+    rightMotor1.config_kF(0, .25);
+		rightMotor1.config_kP(0, 0.1);
+		rightMotor1.config_kI(0, 0);
+    rightMotor1.config_kD(0, 0);
+    leftMotor1.config_kF(0, .25);
+		leftMotor1.config_kP(0, 0.1);
+		leftMotor1.config_kI(0, 0);
+		leftMotor1.config_kD(0, 0);
   }
 
   @Override
@@ -141,6 +156,18 @@ public class DriveSubsystem extends SubsystemBase {
   public void arcadeDrive(double power, double curve) {
     diffDrive.arcadeDrive(power, curve);
   }
+
+  /**
+	 * Used to drive and known left and right velocities via PID.
+	 * 
+	 * @param leftVelocity  the velocity for the left side (clicks / sec ?)
+	 * @param rightVelocity the velocity for the right side (clicks / sec ?)
+	 */
+	public void velocityDrive(double leftVelocity, double rightVelocity) {
+		leftMotor1.set(ControlMode.Velocity, leftVelocity);
+    rightMotor1.set(ControlMode.Velocity, rightVelocity);
+    diffDrive.feed();
+	}
 
   public void clearEncoders() {
     leftMotor1.setSelectedSensorPosition(0);

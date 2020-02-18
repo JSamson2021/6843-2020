@@ -79,7 +79,7 @@ public class RobotContainer {
 	
 	// Section for Controls, WHEN PRESSED
   new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem));
-  new JoystickButton(driver, Button.kStart.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem), new DeployHooks(m_hangingSubsystem)));
+  new JoystickButton(driver, Button.kStart.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(2.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
   new JoystickButton(driver, Button.kBack.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
   //new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new );
 
