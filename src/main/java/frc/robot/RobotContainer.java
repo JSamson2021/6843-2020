@@ -137,4 +137,7 @@ public class RobotContainer {
     return Math.pow((rightStick * 0.9), 3.0);
   }
 
+  public void clearGyro() {
+    m_driveSubsystem.clearGyro();
+  }
 }
