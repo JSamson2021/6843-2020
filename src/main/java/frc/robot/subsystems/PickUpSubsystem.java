@@ -25,7 +25,6 @@ public class PickUpSubsystem extends SubsystemBase {
 
   private final SpeedController m_pickupMotor = new WPI_TalonSRX(Constants.pickupMotor);
   private final SpeedController m_conveyorMotor = new WPI_VictorSPX(Constants.conveyorMotor);
-  private final SpeedController m_shootMotor = new WPI_VictorSPX(Constants.shootMotor);
   
   private DigitalInput recievingIntake = new DigitalInput(Constants.recievingIntake);
   private DigitalInput recievingFill = new DigitalInput(Constants.recievingFill);
@@ -33,7 +32,7 @@ public class PickUpSubsystem extends SubsystemBase {
   public PickUpSubsystem() {
 
     final UsbCamera visionCamera1 = CameraServer.getInstance().startAutomaticCapture(0);
-    final UsbCamera visionCamera2 = CameraServer.getInstance().startAutomaticCapture(0);
+    final UsbCamera visionCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
  
    visionCamera1.setFPS(20);
    visionCamera1.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
@@ -70,13 +69,6 @@ public class PickUpSubsystem extends SubsystemBase {
   public void stopConveyor(){
     m_conveyorMotor.set(0.0);
     m_conveyorMotor.stopMotor(); // Still extra safe
-  }
-  public void shootBall(double speed){
-    m_shootMotor.set(speed);
-  }
-  public void stopShooting(){
-    m_shootMotor.set(0.0);
-    m_shootMotor.stopMotor(); // Still still extra safe
   }
 
   public String State(){

@@ -26,19 +26,21 @@ public final class Constants {
     public static int colorMotor = 14; // Motor to spin the color wheel
     public static int pickupMotor = 15; // The pickup motor that physically spins the brush to pick up the ball
     public static int hangMotor = 16; // The motor to pull up the robot once it is secured to the hang bar
+    public static int hangMotor2 = 18; // The second motor to pull up the robot once it is secured to the hang bar
     public static int conveyorMotor = 17; // The motor that controls the belt to move the balls to the shooter.
-    public static int shootMotor = 18; // The motor that shoots the balls.
 
     public static int compressor = 0; // Compressor for pneumatics system
 
     public static int pdpPort = 0; // Port of the Power Distribution Panel
 
     // PCM Channels
-    public static int hangingOne = 0; // First phase solenoid for hang
-    public static int hangingTwoFirst = 1; // Second stage solenoid for hang, parts one and two of double solenoid
-    public static int hangingTwoSecond = 2; // Beep boob beep
-    public static int hangingThreeFirst = 3;
-    public static int hangingThreeSecond = 4; // Nope
+    public static int hangingOneFirst = 0; // First phase solenoid for hang: Pivot port
+    public static int hangingOneSecond = 1; // First phase solenoid to hang: Return port
+    public static int hangingTwoFirst = 2; // Second stage solenoid for hang, part one: UP
+    public static int hangingTwoSecond = 3; // Second stage solenoid for hang, part two: DOWN
+    public static int hangingThreeFirst = 4; // 
+    public static int hangingThreeSecond = 5; // Nope
+    public static int hangClutch = 6;
 
     // DIO Channels
     public static int hangLimit = 0;

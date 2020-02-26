@@ -10,27 +10,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-
-import frc.robot.commands.CellIntake;
-import frc.robot.commands.ClearGyroAndEncoders;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ColorPosition;
+import frc.robot.commands.ColorWheelSpinner;
+import frc.robot.commands.DeployHooks;
 import frc.robot.commands.JoystickArcadeDrive;
 import frc.robot.commands.ManualBalanceHang;
 import frc.robot.commands.PickRobotUp;
 import frc.robot.commands.PickupState;
 import frc.robot.commands.PivotHangBar;
 import frc.robot.commands.ShootCells;
-import frc.robot.commands.ColorWheelSpinner;
-import frc.robot.commands.DeployHooks;
-
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.PickUpSubsystem;
 import frc.robot.subsystems.HangingSubsystem;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.PickUpSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -75,22 +72,19 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-	m_driveSubsystem.setDefaultCommand(m_driveCommand);
-	
-	// Section for Controls, WHEN PRESSED
-  new JoystickButton(driver, Button.kA.value).whenPressed(new ClearGyroAndEncoders(m_driveSubsystem));
-  new JoystickButton(driver, Button.kStart.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(2.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
-  new JoystickButton(driver, Button.kBack.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
-  //new JoystickButton(driver, Button.kBumperRight.value).whenPressed(new );
+  m_driveSubsystem.setDefaultCommand(m_driveCommand);
+  
 
-  // Section for Controls, WHILE HELD
-  new JoystickButton(driver, Button.kX.value).whileHeld(new ShootCells(m_pickUpSubsystem));
-  new JoystickButton(driver, Button.kY.value).whileHeld(new PickupState(m_pickUpSubsystem));
-  new JoystickButton(driver, Button.kStickLeft.value).whileHeld(new CellIntake(m_pickUpSubsystem)); 
+  // Primary drive controller button bindings:
+    new JoystickButton(driver, Button.kBumperRight.value).whileHeld(new PickupState(m_pickUpSubsystem));
+    new JoystickButton(driver, Button.kY.value).whileHeld(new ShootCells(m_pickUpSubsystem));
 
-  // Section for controls, TOGLLE
-  new JoystickButton(driver, Button.kB.value).toggleWhenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
-  new JoystickButton(driver, Button.kBumperRight.value).toggleWhenPressed(new ColorPosition(m_colorWheelSubsystem));
+  // Secondary drive controller button bindings:
+    new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
+    new JoystickButton(secondary, Button.kB.value).whenPressed(new ColorPosition(m_colorWheelSubsystem));
+    new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(2.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
+    new JoystickButton(secondary, Button.kY.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
+    new JoystickButton(secondary, Button.kStart.value).whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
   }
 

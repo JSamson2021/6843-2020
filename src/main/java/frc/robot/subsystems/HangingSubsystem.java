@@ -16,21 +16,19 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class HangingSubsystem extends SubsystemBase {
   
   private Compressor compressor = new Compressor(Constants.compressor); // Instantiating the compressor establishes the entire pneumatic system
-  private Solenoid firstStage = new Solenoid(Constants.hangingOne); // Single solenoid for raising the secondary solenoid
+  private DoubleSolenoid firstStage = new DoubleSolenoid(Constants.hangingOneFirst, Constants.hangingOneSecond); // Double solenoid for raising the secondary solenoid
   private DoubleSolenoid secondStage = new DoubleSolenoid(Constants.hangingTwoFirst, Constants.hangingTwoSecond); // Double solenoid, raised before firing to hook the hang bar
   private DoubleSolenoid secondStage2 = new DoubleSolenoid(Constants.hangingThreeFirst, Constants.hangingThreeSecond);
+  private Solenoid hangClutch = new Solenoid(Constants.hangClutch);
 
   private WPI_TalonSRX pullMotor = new WPI_TalonSRX(Constants.hangMotor); // Motor to pull robot up once we're hooked on the hang bar
-  private WPI_TalonSRX pullMotor2 = new WPI_TalonSRX(Constants.hangMotor); // Motor to pull robot up once we're hooked on the hang bar
-  private SpeedController pullCon = pullMotor;
-  private SpeedController pullCon2 = pullMotor2;
+  private WPI_TalonSRX pullMotor2 = new WPI_TalonSRX(Constants.hangMotor2); // Motor to pull robot up once we're hooked on the hang bar
 
   private DigitalInput hangLimit = new DigitalInput(Constants.hangLimit);
   private DigitalInput pivotLimit = new DigitalInput(Constants.pivotLimit);
@@ -50,10 +48,11 @@ public class HangingSubsystem extends SubsystemBase {
   }
 
   public void hangPhaseOne(){
-    firstStage.set(true); // Activates the first phase of hanging
+    firstStage.set(Value.kForward); // Activates the first phase of hanging
   }
 
   public void hangPhaseTwo(){
+    disengageClutch();
     secondStage.set(Value.kForward); // Activates the second stage of hanging
     secondStage2.set(Value.kForward);
   }
@@ -64,24 +63,25 @@ public class HangingSubsystem extends SubsystemBase {
   }
 
   public void pullRobotUp(){ // FIXME Encoder Values are wrong
+    engageClutch();
     if (hangLimit.get() == true){
-      pullCon.set(0.0);
-      pullCon.stopMotor();
-      pullCon2.set(0.0);
-      pullCon2.stopMotor(); // Just to be extra safe
+      pullMotor.set(0.0);
+      pullMotor.stopMotor();
+      pullMotor2.set(0.0);
+      pullMotor2.stopMotor(); // Just to be extra safe
     } else if (pullMotor.getSelectedSensorPosition() < 100){
-      pullCon.set(.3);
-      pullCon2.set(.3);
+      pullMotor.set(.3);
+      pullMotor2.set(.3);
     } else if (pullMotor.getSelectedSensorPosition() >= 100){
-      pullCon.set(0.0);
-      pullCon.stopMotor();
-      pullCon2.set(0.0);
-      pullCon2.stopMotor(); // Just to be extra safe again 
+      pullMotor.set(0.0);
+      pullMotor.stopMotor();
+      pullMotor2.set(0.0);
+      pullMotor2.stopMotor(); // Just to be extra safe again 
     } else {
-      pullCon.set(0.0);
-      pullCon.stopMotor();
-      pullCon2.set(0.0);
-      pullCon2.stopMotor(); // Just to be extra safe again again 
+      pullMotor.set(0.0);
+      pullMotor.stopMotor();
+      pullMotor2.set(0.0);
+      pullMotor2.stopMotor(); // Just to be extra safe again again 
     }
   }
 
@@ -94,12 +94,20 @@ public class HangingSubsystem extends SubsystemBase {
   }
 
   public void hangDrive(double leftDrive, double rightDrive) {
-    pullCon.set(leftDrive);
-    pullCon2.set(rightDrive);
+    pullMotor.set(leftDrive);
+    pullMotor2.set(rightDrive);
   }
 
   public Boolean pneumaticsCharged(){
     return compressor.getPressureSwitchValue();
+  }
+
+  public void disengageClutch(){
+    hangClutch.set(true);
+  }
+
+  public void engageClutch(){
+    hangClutch.set(false);
   }
 
 }
