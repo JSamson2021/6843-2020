@@ -24,7 +24,6 @@ public class HangingSubsystem extends SubsystemBase {
   private Compressor compressor = new Compressor(Constants.compressor); // Instantiating the compressor establishes the entire pneumatic system
   private DoubleSolenoid firstStage = new DoubleSolenoid(Constants.hangingOneFirst, Constants.hangingOneSecond); // Double solenoid for raising the secondary solenoid
   private DoubleSolenoid secondStage = new DoubleSolenoid(Constants.hangingTwoFirst, Constants.hangingTwoSecond); // Double solenoid, raised before firing to hook the hang bar
-  private DoubleSolenoid secondStage2 = new DoubleSolenoid(Constants.hangingThreeFirst, Constants.hangingThreeSecond);
   private Solenoid hangClutch = new Solenoid(Constants.hangClutch);
 
   private WPI_TalonSRX pullMotor = new WPI_TalonSRX(Constants.hangMotor); // Motor to pull robot up once we're hooked on the hang bar
@@ -54,12 +53,10 @@ public class HangingSubsystem extends SubsystemBase {
   public void hangPhaseTwo(){
     disengageClutch();
     secondStage.set(Value.kForward); // Activates the second stage of hanging
-    secondStage2.set(Value.kForward);
   }
 
   public void releaseHangingMech(){
     secondStage.set(Value.kOff);
-    secondStage2.set(Value.kOff); 
   }
 
   public void pullRobotUp(){ // FIXME Encoder Values are wrong

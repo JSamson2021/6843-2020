@@ -38,8 +38,6 @@ public final class Constants {
     public static int hangingOneSecond = 1; // First phase solenoid to hang: Return port
     public static int hangingTwoFirst = 2; // Second stage solenoid for hang, part one: UP
     public static int hangingTwoSecond = 3; // Second stage solenoid for hang, part two: DOWN
-    public static int hangingThreeFirst = 4; // 
-    public static int hangingThreeSecond = 5; // Nope
     public static int hangClutch = 6;
 
     // DIO Channels

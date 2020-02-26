@@ -83,7 +83,7 @@ public class RobotContainer {
     new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
     new JoystickButton(secondary, Button.kB.value).whenPressed(new ColorPosition(m_colorWheelSubsystem));
     new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(2.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
-    new JoystickButton(secondary, Button.kY.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
+    new JoystickButton(secondary, Button.kY.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem).withTimeout(3.0), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
     new JoystickButton(secondary, Button.kStart.value).whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
   }
