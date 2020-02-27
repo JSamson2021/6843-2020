@@ -57,7 +57,7 @@ public class PickUpSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Sensor 2", recievingFill.get());
   }
   public void spinPickup(double speed){
-    m_pickupMotor.set(speed);
+    m_pickupMotor.set(-speed);
   }
   public void stopPickup(){
     m_pickupMotor.set(0.0);
