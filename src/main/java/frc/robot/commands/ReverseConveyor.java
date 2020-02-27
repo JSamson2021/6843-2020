@@ -8,19 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ColorWheelSubsystem;
+import frc.robot.subsystems.PickUpSubsystem;
 
-public class ColorPosition extends CommandBase {
-  private final ColorWheelSubsystem m_colorWheelSubsystem;
+public class ReverseConveyor extends CommandBase {
+  final PickUpSubsystem m_pickUpSubsystem;
   /**
-   * Creates a new ColorPosition.
+   * Creates a new ReverseConveyor.
    */
-  public ColorPosition(ColorWheelSubsystem colorWheelSubsystem) {
+  public ReverseConveyor(PickUpSubsystem pickUpSubsystem) {
+    m_pickUpSubsystem = pickUpSubsystem;
+    addRequirements(pickUpSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
-    m_colorWheelSubsystem = colorWheelSubsystem;
-    addRequirements(colorWheelSubsystem);
   }
-  
 
   // Called when the command is initially scheduled.
   @Override
@@ -30,22 +29,18 @@ public class ColorPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(!m_colorWheelSubsystem.onColorTwoOver()){
-      m_colorWheelSubsystem.spinColorWheel(0.1);
-    }
-  
+    m_pickUpSubsystem.spinConveyor(-0.6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_colorWheelSubsystem.stopSpinning();
+    m_pickUpSubsystem.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheelSubsystem.onColorTwoOver();
+    return false;
   }
 }

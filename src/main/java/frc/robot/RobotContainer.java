@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.BringCellsUp;
 import frc.robot.commands.ColorPosition;
 import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.commands.DeployHooks;
@@ -23,6 +24,7 @@ import frc.robot.commands.ManualBalanceHang;
 import frc.robot.commands.PickRobotUp;
 import frc.robot.commands.PickupState;
 import frc.robot.commands.PivotHangBar;
+import frc.robot.commands.ReverseConveyor;
 import frc.robot.commands.ShootCells;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -78,6 +80,8 @@ public class RobotContainer {
   // Primary drive controller button bindings:
     new JoystickButton(driver, Button.kBumperRight.value).whileHeld(new PickupState(m_pickUpSubsystem));
     new JoystickButton(driver, Button.kY.value).whileHeld(new ShootCells(m_pickUpSubsystem));
+    new JoystickButton(driver, Button.kStart.value).whileHeld(new ReverseConveyor(m_pickUpSubsystem));
+    new JoystickButton(driver, Button.kBumperLeft.value).whileHeld(new BringCellsUp(m_pickUpSubsystem));
 
   // Secondary drive controller button bindings:
     new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));

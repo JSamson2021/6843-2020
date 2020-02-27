@@ -50,7 +50,7 @@ public class ColorWheelSpinner extends CommandBase {
 
     String seenColor = m_colorWheelSubsystem.firstCharString(m_colorWheelSubsystem.colorString); 
     
-    m_colorWheelSubsystem.spinColorWheel(1.0); // Starts the motor
+    m_colorWheelSubsystem.spinColorWheel(.25); // Starts the motor
 
     if(seenColor.equals(startColor) && startColor != null && searching){
       rotationCount++; // Increases rotationCount everytime the sensor sees the first color

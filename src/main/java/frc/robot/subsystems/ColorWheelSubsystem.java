@@ -40,8 +40,11 @@ public class ColorWheelSubsystem extends SubsystemBase {
 
 
   Color sensorColor;
-  public Color debouncedColor;
+  Color debouncedColor;
   int colorCounter;
+
+  //String[] colors = {"Yellow","Blue","Green","Red"};
+  //int expectedColor = -1;
 
   public String colorString;
 
@@ -94,7 +97,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
       // Below here turns the color into a string with the correct name (Hopefully!)
       ColorMatchResult match = m_colorMatcher.matchClosestColor(debouncedColor);
 
-      if (match.color == kBlueTarget) {
+      if (match.color == kBlueTarget ) {
         colorString = "Blue";
       } else if (match.color == kRedTarget) {
         colorString = "Red";
@@ -102,9 +105,9 @@ public class ColorWheelSubsystem extends SubsystemBase {
         colorString = "Green";
       } else if (match.color == kYellowTarget) {
         colorString = "Yellow";
-      } else {
-        colorString = "Unknown";
-      } // End "Below here"
+      } else{
+       colorString = "Unknown";
+      }// End "Below here"
 
       redEntry.setDouble(debouncedColor.red);
       greenEntry.setDouble(debouncedColor.green);

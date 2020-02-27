@@ -64,7 +64,7 @@ public class PickUpSubsystem extends SubsystemBase {
     m_pickupMotor.stopMotor(); // Extra safe
   }
   public void spinConveyor(double speed){
-    m_conveyorMotor.set(speed);
+    m_conveyorMotor.set(-speed);
   }
   public void stopConveyor(){
     m_conveyorMotor.set(0.0);
