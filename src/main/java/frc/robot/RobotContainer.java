@@ -15,17 +15,21 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoVeloDrive;
+import frc.robot.commands.AutoVeloTurn;
 import frc.robot.commands.BringCellsUp;
 import frc.robot.commands.ColorPosition;
 import frc.robot.commands.ColorWheelSpinner;
 import frc.robot.commands.DeployHooks;
 import frc.robot.commands.JoystickArcadeDrive;
+import frc.robot.commands.LowerHangBar;
 import frc.robot.commands.ManualBalanceHang;
 import frc.robot.commands.PickRobotUp;
 import frc.robot.commands.PickupState;
 import frc.robot.commands.PivotHangBar;
 import frc.robot.commands.ReverseConveyor;
 import frc.robot.commands.ShootCells;
+import frc.robot.commands.StowHooks;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HangingSubsystem;
@@ -57,6 +61,8 @@ public class RobotContainer {
   private final XboxController driver = new XboxController(0);
 // Yes Michael I took all this stuff away.
   private final XboxController secondary = new XboxController(1);
+
+  private final XboxController test = new XboxController(2);
 	
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -81,14 +87,24 @@ public class RobotContainer {
     new JoystickButton(driver, Button.kBumperRight.value).whileHeld(new PickupState(m_pickUpSubsystem));
     new JoystickButton(driver, Button.kY.value).whileHeld(new ShootCells(m_pickUpSubsystem));
     new JoystickButton(driver, Button.kStart.value).whileHeld(new ReverseConveyor(m_pickUpSubsystem));
-    new JoystickButton(driver, Button.kBumperLeft.value).whileHeld(new BringCellsUp(m_pickUpSubsystem));
+    //new JoystickButton(driver, Button.kBumperLeft.value).whileHeld(new BringCellsUp(m_pickUpSubsystem));
 
   // Secondary drive controller button bindings:
-    new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem));
+    new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem, m_driveSubsystem));
     new JoystickButton(secondary, Button.kB.value).whenPressed(new ColorPosition(m_colorWheelSubsystem));
-    new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(2.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
-    new JoystickButton(secondary, Button.kY.value).whenPressed(new SequentialCommandGroup(new PickRobotUp(m_hangingSubsystem).withTimeout(3.0), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
+    new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(5.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
+    new JoystickButton(secondary, Button.kY.value).whenPressed(new StowHooks(m_hangingSubsystem));
+    new JoystickButton(secondary, Button.kBumperRight.value).whenPressed(new SequentialCommandGroup(new LowerHangBar(m_hangingSubsystem).withTimeout(1.0), new PickRobotUp(m_hangingSubsystem).withTimeout(3.0), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
     new JoystickButton(secondary, Button.kStart.value).whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
+
+  // Third testing controls:
+    new JoystickButton(test, Button.kA.value).whenPressed(new DeployHooks(m_hangingSubsystem).withTimeout(0.0));
+    new JoystickButton(test, Button.kB.value).whenPressed(new StowHooks(m_hangingSubsystem).withTimeout(0.0));
+    new JoystickButton(test, Button.kX.value).whenPressed(new PivotHangBar(m_hangingSubsystem).withTimeout(0.0));
+    new JoystickButton(test, Button.kY.value).whenPressed(new LowerHangBar(m_hangingSubsystem).withTimeout(0.0));
+    new JoystickButton(test, Button.kBumperLeft.value).whenPressed(new InstantCommand(() -> disengageClutch(), m_hangingSubsystem));
+    new JoystickButton(test, Button.kBumperRight.value).whenPressed(new InstantCommand(() -> engageClutch(), m_hangingSubsystem));
+
 
   }
 
@@ -99,7 +115,24 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_driveCommand;
+    //return new AutoVeloDrive(m_driveSubsystem).withTimeout(3.0);
+    return testAuto();
+  }
+
+  public Command testAuto() {
+    return new AutoVeloDrive(m_driveSubsystem, -1000.0).withTimeout(5.0)
+    //.andThen(new AutoVeloTurn(m_driveSubsystem, -300.0, -900.0, 90f))
+    //.andThen(new AutoVeloDrive(m_driveSubsystem, -1000.0).withTimeout(2.5))
+    //.andThen(new AutoVeloTurn(m_driveSubsystem, -900.0, -300.0, 90f))
+    //.andThen(new AutoVeloDrive(m_driveSubsystem, -1000.0).withTimeout(1.0))
+    
+    .andThen(new ShootCells(m_pickUpSubsystem).withTimeout(5.0));
+    
+    //.andThen(new AutoVeloDrive(m_driveSubsystem, 1000.0).withTimeout(1.5))
+    //.andThen(new AutoVeloTurn(m_driveSubsystem, 900.0, 300.0, 90f))
+    //.andThen(new AutoVeloDrive(m_driveSubsystem, 1000.0).withTimeout(2.5))
+    //.andThen(new AutoVeloTurn(m_driveSubsystem, 300.0, 900.0, 90f))
+    //.andThen(new AutoVeloDrive(m_driveSubsystem, 1000.0).withTimeout(1.5));
   }
 
   /**
@@ -134,14 +167,30 @@ public class RobotContainer {
   }
 
   public double getSecondaryRightStick() {
-    double rightStick = secondary.getRawAxis(CURVE_AXIS);
+    double rightStick = secondary.getRawAxis(5);
     if (Math.abs(rightStick) < DEAD_ZONE) {
 			rightStick = 0.0;
     }
-    return Math.pow((rightStick * 0.9), 3.0);
+    return -Math.pow((rightStick * 0.9), 3.0);
   }
 
   public void clearGyro() {
     m_driveSubsystem.clearGyro();
+  }
+
+  public void disengageClutch() {
+    this.m_hangingSubsystem.disengageClutch();
+  }
+
+  public void engageClutch(){
+    this.m_hangingSubsystem.engageClutch();
+  }
+
+  public void resetAir() {
+    this.m_hangingSubsystem.resetAir();
+  }
+
+  public void deployHooks(){
+    this.m_hangingSubsystem.hangPhaseTwo();
   }
 }

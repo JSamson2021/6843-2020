@@ -178,4 +178,8 @@ public class DriveSubsystem extends SubsystemBase {
     gyro.zeroYaw();
   }
 
+public float getYaw(){
+  return gyro.getYaw();
+}
+
 }

@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    m_robotContainer.resetAir();
   }
 
   @Override
@@ -65,6 +66,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_robotContainer.resetAir();
     m_robotContainer.clearGyro();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -83,6 +85,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_robotContainer.resetAir();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

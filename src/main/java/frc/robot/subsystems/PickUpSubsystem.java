@@ -36,15 +36,11 @@ public class PickUpSubsystem extends SubsystemBase {
  
    visionCamera1.setFPS(20);
    visionCamera1.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-   visionCamera1.setExposureManual(25);
-   visionCamera1.setBrightness(25);
-   visionCamera1.setWhiteBalanceManual(4500);
+   visionCamera1.setBrightness(75);
 
    visionCamera2.setFPS(20);
    visionCamera2.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-   visionCamera2.setExposureManual(25);
-   visionCamera2.setBrightness(25);
-   visionCamera2.setWhiteBalanceManual(4500);
+   visionCamera2.setBrightness(75);
 
 
   }

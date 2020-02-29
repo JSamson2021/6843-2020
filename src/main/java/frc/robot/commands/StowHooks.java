@@ -10,12 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangingSubsystem;
 
-public class PivotHangBar extends CommandBase {
+public class StowHooks extends CommandBase {
   final HangingSubsystem m_hangingSubsystem;
   /**
-   * Creates a new PivotHangBar.
+   * Creates a new StowHooks.
    */
-  public PivotHangBar(HangingSubsystem hangingSubsystem) {
+  public StowHooks(HangingSubsystem hangingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_hangingSubsystem = hangingSubsystem;
     addRequirements(hangingSubsystem);
@@ -24,24 +24,22 @@ public class PivotHangBar extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_hangingSubsystem.disengageClutch();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_hangingSubsystem.hangPhaseOne();
+    m_hangingSubsystem.pullHooksDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_hangingSubsystem.hangDrive(0.0, 0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -28,11 +27,9 @@ public class HangingSubsystem extends SubsystemBase {
 
   private WPI_TalonSRX pullMotor = new WPI_TalonSRX(Constants.hangMotor); // Motor to pull robot up once we're hooked on the hang bar
   private WPI_TalonSRX pullMotor2 = new WPI_TalonSRX(Constants.hangMotor2); // Motor to pull robot up once we're hooked on the hang bar
-
-  private DigitalInput hangLimit = new DigitalInput(Constants.hangLimit);
-  private DigitalInput pivotLimit = new DigitalInput(Constants.pivotLimit);
   
   public HangingSubsystem() {
+    resetAir();
     pullMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0); // Tell the motor controllers that there are encoders connected to them
     pullMotor.setSensorPhase(true); // Inverts the phase of the Encoder
     pullMotor.setNeutralMode(NeutralMode.Brake); // Tells the motor to stop spinning when it is stopped, instead of coastinng to a stop
@@ -56,12 +53,22 @@ public class HangingSubsystem extends SubsystemBase {
   }
 
   public void releaseHangingMech(){
-    secondStage.set(Value.kOff);
+    secondStage.set(Value.kReverse);
   }
 
-  public void pullRobotUp(){ // FIXME Encoder Values are wrong
+  public void pullHooksDown(){
+    secondStage.set(Value.kReverse);
+  }
+
+  public void lowerHangBar(){
+    firstStage.set(Value.kReverse);
+  }
+
+  public void pullRobotUp(){ // NOFIXME Encoder Values are wrong
     engageClutch();
-    if (hangLimit.get() == true){
+    pullMotor.set(-0.3);
+    pullMotor2.set(0.3);
+    /*if (hangLimit.get() == true){
       pullMotor.set(0.0);
       pullMotor.stopMotor();
       pullMotor2.set(0.0);
@@ -79,15 +86,7 @@ public class HangingSubsystem extends SubsystemBase {
       pullMotor.stopMotor();
       pullMotor2.set(0.0);
       pullMotor2.stopMotor(); // Just to be extra safe again again 
-    }
-  }
-
-  public Boolean isHung() {
-    return hangLimit.get();
-  }
-
-  public Boolean isVertical() {
-    return pivotLimit.get();
+    } */
   }
 
   public void hangDrive(double leftDrive, double rightDrive) {
@@ -100,10 +99,16 @@ public class HangingSubsystem extends SubsystemBase {
   }
 
   public void disengageClutch(){
-    hangClutch.set(true);
+    hangClutch.set(false);
   }
 
   public void engageClutch(){
+    hangClutch.set(true);
+  }
+
+  public void resetAir() {
+    firstStage.set(Value.kReverse);
+    secondStage.set(Value.kReverse);
     hangClutch.set(false);
   }
 

@@ -14,6 +14,7 @@ public class PickupState extends CommandBase {
   final PickUpSubsystem m_pickUpSubsystem;
   
   int intakeStopCount = 25;
+  int conveyorStopCount = 25;
 
   /**
    * Creates a new PickupState.
@@ -28,18 +29,25 @@ public class PickupState extends CommandBase {
   @Override
   public void initialize() {
     intakeStopCount = 25;
+    conveyorStopCount = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if(m_pickUpSubsystem.State().equals("Active")){   //when the pickup system is "active" the pickup motor in front of the conveyor opening runs
-      m_pickUpSubsystem.spinPickup(.25);
       intakeStopCount = 25;
-      m_pickUpSubsystem.stopConveyor();
+      m_pickUpSubsystem.spinPickup(.35);
+
+      conveyorStopCount--;
+      if (conveyorStopCount <=0)
+        m_pickUpSubsystem.stopConveyor();
+      else
+        m_pickUpSubsystem.spinConveyor(.3);
    
     }else if(m_pickUpSubsystem.State().equals("Stowing")){ //when the pickup system is "stowing" the pickup motor turns off and the conveyor motore runs 
-      m_pickUpSubsystem.spinConveyor(.25);
+      conveyorStopCount = 25;
+      m_pickUpSubsystem.spinConveyor(.3);
       
       intakeStopCount--;
      
