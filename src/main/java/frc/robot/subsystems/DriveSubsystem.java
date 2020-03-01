@@ -111,13 +111,13 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() { // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Right Encoder", rightMotor1.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Left Encoder", leftMotor1.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Gyro Yaw", gyro.getAngle());
-    SmartDashboard.putNumber("Gyro Heading", gyro.getCompassHeading());
+    //SmartDashboard.putNumber("Right Encoder", rightMotor1.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Left Encoder", leftMotor1.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Gyro Yaw", gyro.getAngle());
+    //SmartDashboard.putNumber("Gyro Heading", gyro.getCompassHeading());
 
     // Amps drawn by the specified ports of the PDP
-    Double amperagePort0 = powerPanel.getCurrent(0);
+    /*Double amperagePort0 = powerPanel.getCurrent(0);
     Double amperagePort1 = powerPanel.getCurrent(1);
     Double amperagePort2 = powerPanel.getCurrent(2);
     Double amperagePort3 = powerPanel.getCurrent(3);
@@ -151,6 +151,7 @@ public class DriveSubsystem extends SubsystemBase {
     ampEntry13.setDouble(amperagePort13);
     ampEntry14.setDouble(amperagePort14);
     ampEntry15.setDouble(amperagePort15);
+    */
   }
 
   public void arcadeDrive(double power, double curve) {

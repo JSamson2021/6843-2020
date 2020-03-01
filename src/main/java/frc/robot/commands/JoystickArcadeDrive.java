@@ -41,7 +41,7 @@ public class JoystickArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     m_driveSubsystem.arcadeDrive(m_powerSupplier.get(), m_curveSupplier.get());
-    SmartDashboard.putNumber("Drive Power", m_powerSupplier.get());
+    //SmartDashboard.putNumber("Drive Power", m_powerSupplier.get());
   }
 
   // Called once the command ends or is interrupted.

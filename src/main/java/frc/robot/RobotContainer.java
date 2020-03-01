@@ -62,7 +62,7 @@ public class RobotContainer {
 // Yes Michael I took all this stuff away.
   private final XboxController secondary = new XboxController(1);
 
-  private final XboxController test = new XboxController(2);
+  //private final XboxController test = new XboxController(2);
 	
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -98,12 +98,13 @@ public class RobotContainer {
     new JoystickButton(secondary, Button.kStart.value).whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
   // Third testing controls:
-    new JoystickButton(test, Button.kA.value).whenPressed(new DeployHooks(m_hangingSubsystem).withTimeout(0.0));
+   /* new JoystickButton(test, Button.kA.value).whenPressed(new DeployHooks(m_hangingSubsystem).withTimeout(0.0));
     new JoystickButton(test, Button.kB.value).whenPressed(new StowHooks(m_hangingSubsystem).withTimeout(0.0));
     new JoystickButton(test, Button.kX.value).whenPressed(new PivotHangBar(m_hangingSubsystem).withTimeout(0.0));
     new JoystickButton(test, Button.kY.value).whenPressed(new LowerHangBar(m_hangingSubsystem).withTimeout(0.0));
     new JoystickButton(test, Button.kBumperLeft.value).whenPressed(new InstantCommand(() -> disengageClutch(), m_hangingSubsystem));
     new JoystickButton(test, Button.kBumperRight.value).whenPressed(new InstantCommand(() -> engageClutch(), m_hangingSubsystem));
+    */
 
 
   }

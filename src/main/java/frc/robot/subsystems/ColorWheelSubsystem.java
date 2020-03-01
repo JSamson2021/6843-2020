@@ -109,7 +109,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
        colorString = "Unknown";
       }// End "Below here"
 
-      redEntry.setDouble(debouncedColor.red);
+      /*redEntry.setDouble(debouncedColor.red);
       greenEntry.setDouble(debouncedColor.green);
       blueEntry.setDouble(debouncedColor.red);
       confidenceEntry.setDouble(match.confidence);
@@ -118,6 +118,7 @@ public class ColorWheelSubsystem extends SubsystemBase {
       redReadEntry.setDouble(cV3.getColor().red);
       greenReadEntry.setDouble(cV3.getColor().green);
       blueReadEntry.setDouble(cV3.getColor().blue);
+      */
 
     }
   }

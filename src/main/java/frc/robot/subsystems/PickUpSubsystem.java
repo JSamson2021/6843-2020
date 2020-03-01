@@ -32,15 +32,15 @@ public class PickUpSubsystem extends SubsystemBase {
   public PickUpSubsystem() {
 
     final UsbCamera visionCamera1 = CameraServer.getInstance().startAutomaticCapture(0);
-    final UsbCamera visionCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    //final UsbCamera visionCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
  
-   visionCamera1.setFPS(20);
+   visionCamera1.setFPS(15);
    visionCamera1.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
    visionCamera1.setBrightness(75);
 
-   visionCamera2.setFPS(20);
-   visionCamera2.setResolution(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT);
-   visionCamera2.setBrightness(75);
+   /*visionCamera2.setFPS(5);
+   visionCamera2.setResolution(Constants.LOW_IMAGE_WIDTH, Constants.LOW_IMAGE_HEIGHT);
+   visionCamera2.setBrightness(75);*/
 
 
   }

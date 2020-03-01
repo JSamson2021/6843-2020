@@ -57,6 +57,8 @@ public final class Constants {
 
     public static final int IMAGE_WIDTH = 320;
     public static final int IMAGE_HEIGHT = 240;
+    public static final int LOW_IMAGE_WIDTH = 160;
+    public static final int LOW_IMAGE_HEIGHT = 120;
 
     public static final String testTab = "TESTING";
     public static final String ampTab = "AMPS";
