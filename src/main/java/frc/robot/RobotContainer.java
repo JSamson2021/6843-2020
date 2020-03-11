@@ -92,7 +92,7 @@ public class RobotContainer {
   // Secondary drive controller button bindings:
     new JoystickButton(secondary, Button.kA.value).whenPressed(new ColorWheelSpinner(m_colorWheelSubsystem, m_driveSubsystem));
     new JoystickButton(secondary, Button.kB.value).whenPressed(new ColorPosition(m_colorWheelSubsystem));
-    new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(5.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
+    new JoystickButton(secondary, Button.kX.value).whenPressed(new SequentialCommandGroup(new PivotHangBar(m_hangingSubsystem).withTimeout(3.0), new DeployHooks(m_hangingSubsystem).withTimeout(3.0)));
     new JoystickButton(secondary, Button.kY.value).whenPressed(new StowHooks(m_hangingSubsystem));
     new JoystickButton(secondary, Button.kBumperRight.value).whenPressed(new SequentialCommandGroup(new LowerHangBar(m_hangingSubsystem).withTimeout(1.0), new PickRobotUp(m_hangingSubsystem).withTimeout(3.0), new ManualBalanceHang(m_hangingSubsystem, () -> getSecondaryRightStick(), () -> getSecondaryLeftStick())));
     new JoystickButton(secondary, Button.kStart.value).whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));

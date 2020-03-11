@@ -37,9 +37,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotor1, rightMotor1);
 
-  private final PowerDistributionPanel powerPanel = new PowerDistributionPanel(Constants.pdpPort);
+  //private final PowerDistributionPanel powerPanel = new PowerDistributionPanel(Constants.pdpPort);
 
-  Double amperagePort0;
+/*  Double amperagePort0;
   Double amperagePort1;
   Double amperagePort2;
   Double amperagePort3;
@@ -54,10 +54,10 @@ public class DriveSubsystem extends SubsystemBase {
   Double amperagePort12;
   Double amperagePort13;
   Double amperagePort14;
-  Double amperagePort15;
+  Double amperagePort15; */
 
 // All of these can never have null values, so I set them all to 6.9, but they will refresh after 20ms
-  private NetworkTableEntry ampEntry0 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", 6.9).getEntry();
+  /* private NetworkTableEntry ampEntry0 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 0", 6.9).getEntry();
   private NetworkTableEntry ampEntry1 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 1", 6.9).getEntry();
   private NetworkTableEntry ampEntry2 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 2", 6.9).getEntry();
   private NetworkTableEntry ampEntry3 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 3", 6.9).getEntry();
@@ -73,6 +73,7 @@ public class DriveSubsystem extends SubsystemBase {
   private NetworkTableEntry ampEntry13 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 13", 6.9).getEntry();
   private NetworkTableEntry ampEntry14 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 14", 6.9).getEntry();
   private NetworkTableEntry ampEntry15 = Shuffleboard.getTab(Constants.ampTab).add("Amps port 15", 6.9).getEntry();
+  */
 
 
 
@@ -155,7 +156,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void arcadeDrive(double power, double curve) {
-    diffDrive.arcadeDrive(power, curve);
+    diffDrive.arcadeDrive(power, curve, false);
   }
 
   /**

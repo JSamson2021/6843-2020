@@ -37,7 +37,7 @@ public class PickupState extends CommandBase {
   public void execute() {
     if(m_pickUpSubsystem.State().equals("Active")){   //when the pickup system is "active" the pickup motor in front of the conveyor opening runs
       intakeStopCount = 25;
-      m_pickUpSubsystem.spinPickup(.35);
+      m_pickUpSubsystem.spinPickup(.65);
 
       conveyorStopCount--;
       if (conveyorStopCount <=0)
